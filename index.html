@@ -1,721 +1,591 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mind Map: Kesumah Farm - Profesional & Modern</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-blue: #007bff;
-            --dark-blue: #0056b3;
-            --accent-green: #28a745;
-            --dark-charcoal: #343a40;
-            --light-gray-bg: #f8f9fa;
-            --medium-gray-border: #e0e6ed;
-            --text-dark: #212529;
-            --text-medium: #495057;
-            --text-light: #6c757d;
-        }
+import React, { useState, useEffect } from 'react';
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f0f4f8 0%, #e6eff6 100%);
-            color: var(--text-dark);
-            padding: 2.5rem;
-            line-height: 1.7;
-            overflow-x: hidden;
-            display: flex;
-            justify-content: center;
-        }
+// Main App Component
+const App = () => {
+  const [currentPage, setCurrentPage] = useState('home');
 
-        .mind-map-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6rem;
-            max-width: 1280px;
-            margin: 0 auto;
-            position: relative;
-            padding-bottom: 6rem;
-        }
+  const navigateTo = (page) => {
+    setCurrentPage(page);
+    window.scrollTo(0, 0); // Scroll to top on page change
+  };
 
-        /* Main Node Styling */
-        .main-node {
-            background: linear-gradient(135deg, var(--dark-charcoal), #495057);
-            color: white;
-            padding: 3rem 5rem;
-            border-radius: 3.5rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); /* Refined shadow */
-            text-align: center;
-            font-size: 3.5rem;
-            font-weight: 800;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            z-index: 10;
-            letter-spacing: 0.07em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
-        }
-        .main-node:hover {
-            transform: translateY(-10px) scale(1.02); /* Slightly less dramatic hover */
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-        }
-
-        /* Section Branch Styling */
-        .section-branch {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            gap: 3.5rem;
-            position: relative;
-        }
-        .section-title {
-            background: linear-gradient(45deg, var(--primary-blue), var(--dark-blue));
-            color: white;
-            padding: 1.8rem 3.5rem; /* Slightly reduced padding */
-            border-radius: 3rem;
-            font-size: 2.5rem; /* Slightly smaller font */
-            font-weight: 700;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25); /* Refined shadow */
-            cursor: pointer;
-            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-            width: fit-content;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            gap: 1.5rem; /* Slightly less space */
-            letter-spacing: 0.04em; /* Subtle adjustment */
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .section-title:hover {
-            background: linear-gradient(45deg, var(--dark-blue), var(--primary-blue));
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-        }
-        .section-title .icon {
-            font-size: 2.8rem; /* Slightly smaller icon */
-            line-height: 1;
-        }
-        .arrow-icon {
-            font-size: 2rem; /* Slightly smaller arrow */
-            transition: transform 0.3s ease-in-out;
-        }
-        .arrow-icon.rotated {
-            transform: rotate(90deg);
-        }
-
-        /* Subsection Card Styling */
-        .subsection-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2.5rem; /* Slightly reduced gap for a tighter look */
-            width: 100%;
-            padding: 2rem; /* Reduced padding */
-        }
-        .subsection-card {
-            background-color: #ffffff;
-            border-radius: 2rem; /* Slightly less rounded */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Lighter, diffused shadow */
-            padding: 2.5rem; /* Slightly reduced padding */
-            flex: 1 1 calc(33% - 2.5rem); /* Adjusted for new gap */
-            min-width: 340px; /* Slightly smaller min-width */
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem; /* Slightly reduced gap */
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            border: 1px solid var(--medium-gray-border);
-        }
-        .subsection-card:hover {
-            transform: translateY(-8px) scale(1.01); /* Less dramatic hover */
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-        }
-        .subsection-card-title {
-            font-weight: 700;
-            color: var(--dark-blue);
-            font-size: 1.6rem; /* Slightly smaller font */
-            margin-bottom: 0.8rem; /* Reduced margin */
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.05); /* Lighter text shadow */
-        }
-        .subsection-card-title .icon {
-            font-size: 2.2rem; /* Slightly smaller icon */
-            line-height: 1;
-            color: var(--primary-blue);
-        }
-        .subsection-card ul {
-            list-style: none;
-            padding-left: 0;
-            margin-top: 0.8rem; /* Reduced margin */
-            color: var(--text-medium);
-            font-size: 1.05rem; /* Slightly smaller font */
-        }
-        .subsection-card ul li {
-            margin-bottom: 0.7rem; /* Slightly less space */
-            position: relative;
-            padding-left: 2rem; /* Reduced space for custom bullet */
-        }
-        .subsection-card ul li::before {
-            content: '✓';
-            color: var(--accent-green);
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -2em; /* Adjusted margin */
-            position: absolute;
-            left: 0;
-            top: 0.1em; /* Adjusted vertical alignment */
-            font-size: 1em;
-        }
-        .collapsible-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out, padding 0.5s ease-out; /* Slower, smoother transition */
-            padding: 0 2rem; /* Adjusted padding */
-        }
-        .collapsible-content.expanded {
-            max-height: 6000px;
-            padding: 2rem;
-        }
-        .sub-sub-card {
-            background-color: var(--light-gray-bg);
-            border-radius: 1.5rem; /* Slightly less rounded */
-            padding: 1.8rem; /* Slightly reduced padding */
-            margin-top: 1.8rem; /* Slightly reduced margin */
-            box-shadow: inset 0 3px 8px rgba(0,0,0,0.05); /* Lighter inset shadow */
-            border: 1px solid #dee2e6; /* Lighter border */
-        }
-        .sub-sub-card-title {
-            font-weight: 600;
-            font-size: 1.25rem; /* Slightly smaller font */
-            color: var(--text-light);
-            margin-bottom: 0.8rem; /* Reduced margin */
-        }
-        .sub-sub-card ul li::before {
-            content: '—';
-            color: #adb5bd;
-            top: 0.1em;
-            font-size: 1em;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 1024px) {
-            .subsection-card {
-                flex: 1 1 calc(50% - 2.5rem);
-            }
-        }
-        @media (max-width: 768px) {
-            body {
-                padding: 1.5rem;
-            }
-            .subsection-card {
-                flex: 1 1 100%;
-                min-width: unset; /* Allow card to shrink */
-            }
-            .main-node {
-                font-size: 2.5rem;
-                padding: 1.8rem 3rem;
-            }
-            .section-title {
-                font-size: 2rem;
-                padding: 1.4rem 2.5rem;
-            }
-            .section-title .icon {
-                font-size: 2.5rem;
-            }
-            .subsection-card-title {
-                font-size: 1.5rem;
-            }
-            .subsection-card-title .icon {
-                font-size: 1.8rem;
-            }
-            .subsection-card ul li {
-                font-size: 1rem;
-            }
-        }
-
-        /* Timeline Specific Styles for Rencana Pengembangan */
-        .timeline-container {
-            position: relative;
-            width: 90%;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem 0;
-        }
-        .timeline-container::after {
-            content: '';
-            position: absolute;
-            width: 4px; /* Thinner line */
-            background-color: #ced4da;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -2px; /* Adjusted for thinner line */
-            border-radius: 2px;
-        }
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            background-color: inherit;
-            width: 50%;
-            margin-bottom: 2rem;
-        }
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 20px; /* Smaller dot */
-            height: 20px; /* Smaller dot */
-            right: -12px; /* Adjusted for smaller dot */
-            background-color: var(--primary-blue);
-            border: 3px solid #ffffff; /* Thinner border */
-            top: 15px;
-            border-radius: 50%;
-            z-index: 1;
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2); /* Lighter shadow */
-        }
-        .timeline-item.left {
-            left: 0;
-        }
-        .timeline-item.right {
-            left: 50%;
-        }
-        .timeline-item.left::before {
-            content: " ";
-            height: 0;
-            width: 0;
-            position: absolute;
-            top: 22px;
-            z-index: 1;
-            right: 30px;
-            border: medium solid white;
-            border-width: 10px 0 10px 10px;
-            border-color: transparent transparent transparent white;
-        }
-        .timeline-item.right::before {
-            content: " ";
-            height: 0;
-            width: 0;
-            position: absolute;
-            top: 22px;
-            z-index: 1;
-            left: 30px;
-            border: medium solid white;
-            border-width: 10px 10px 10px 0;
-            border-color: transparent white transparent transparent;
-        }
-        .timeline-item.right::after {
-            left: -10px; /* Adjusted for smaller dot */
-        }
-        .timeline-content {
-            background-color: white;
-            position: relative;
-            border-radius: 1rem; /* Slightly less rounded */
-            padding: 1.5rem; /* Reduced padding */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Lighter shadow */
-            transition: all 0.25s ease-in-out; /* Faster transition */
-            border: 1px solid var(--medium-gray-border);
-        }
-        .timeline-content:hover {
-            transform: translateY(-3px); /* Less dramatic hover */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
-        .timeline-content h3 {
-            font-weight: 700;
-            color: var(--dark-blue);
-            font-size: 1.4rem; /* Slightly smaller font */
-            margin-bottom: 0.6rem; /* Reduced margin */
-        }
-        .timeline-content ul {
-            list-style: none;
-            padding-left: 0;
-            font-size: 1rem; /* Slightly smaller font */
-            color: var(--text-medium);
-        }
-        .timeline-content ul li {
-            margin-bottom: 0.4rem; /* Reduced space */
-            position: relative;
-            padding-left: 1.5rem; /* Reduced padding */
-        }
-        .timeline-content ul li::before {
-            content: '•';
-            color: var(--primary-blue);
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1.5em; /* Adjusted margin */
-            position: absolute;
-            left: 0;
-            top: 0.1em;
-        }
-
-        /* Responsive timeline */
-        @media screen and (max-width: 768px) {
-            .timeline-container::after {
-                left: 20px; /* Adjusted for smaller screens */
-            }
-            .timeline-item {
-                width: 100%;
-                padding-left: 50px; /* Adjusted padding */
-                padding-right: 15px; /* Adjusted padding */
-            }
-            .timeline-item::before {
-                left: 40px; /* Adjusted for smaller screens */
-                border-width: 8px 8px 8px 0; /* Slightly smaller border */
-            }
-            .timeline-item::after {
-                left: 8px; /* Adjusted for smaller screens */
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="mind-map-container">
-        <div id="mainNode" class="main-node">
-            🐑 KESUMAH FARM 🚀
-        </div>
-
-        <div class="section-branch">
-            <div id="liniBisnisTitle" class="section-title">
-                <span class="icon">💼</span> 1. LINI BISNIS UTAMA <span class="arrow-icon">▶</span>
-            </div>
-            <div id="liniBisnisContent" class="collapsible-content">
-                <div class="subsection-container">
-                    <div class="subsection-card">
-                        <h3 class="subsection-card-title"><span class="icon">🏠</span> 1.1. Layanan Penitipan Kambing/Domba</h3>
-                        <div class="sub-sub-card">
-                            <h4 class="sub-sub-card-title">Deskripsi Layanan:</h4>
-                            <ul>
-                                <li>Fasilitas kandang aman, bersih, nyaman (jangka pendek/panjang).</li>
-                                <li>Termasuk pakan, air minum, perawatan kesehatan dasar.</li>
-                            </ul>
-                        </div>
-                        <div class="sub-sub-card">
-                            <h4 class="sub-sub-card-title">Fitur Unggulan:</h4>
-                            <ul>
-                                <li>Laporan digital berkala (foto/video/teks via WA/email).</li>
-                                <li>Monitoring kondisi hewan.</li>
-                            </ul>
-                        </div>
-                        <div class="sub-sub-card">
-                            <h4 class="sub-sub-card-title">Target Pasar:</h4>
-                            <ul>
-                                <li>Pemilik hewan (tidak ada lahan/fasilitas).</li>
-                                <li>Peternak kecil (penggemukan/perawatan khusus).</li>
-                                <li>Konsumen kurban/akikah (titip hingga hari-H).</li>
-                            </ul>
-                        </div>
-                        <div class="sub-sub-card">
-                            <h4 class="sub-sub-card-title">Operasional Penitipan:</h4>
-                            <ul>
-                                <li>Prosedur penerimaan (pendaftaran, cek kesehatan, identifikasi).</li>
-                                <li>Manajemen perawatan harian (pakan, air, kebersihan kandang).</li>
-                                <li>Manajemen kesehatan (cek visual, vitamin, isolasi sakit, dokter hewan).</li>
-                                <li>Komunikasi transparan dengan pemilik.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="subsection-card">
-                        <h3 class="subsection-card-title"><span class="icon">🛠️</span> 1.2. Produksi & Penjualan Kandang Portable Bongkar Pasang</h3>
-                        <div class="sub-sub-card">
-                            <h4 class="sub-sub-card-title">Deskripsi Produk:</h4>
-                            <ul>
-                                <li>Kandang modular, mudah dirakit/dibongkar.</li>
-                                <li>Material ringan tapi kuat (PVC tebal, baja ringan, kayu/bambu olahan).</li>
-                                <li>Desain ergonomis (higienis, lantai panggung).</li>
-                            </ul>
-                        </div>
-                        <div class="sub-sub-card">
-                            <h4 class="sub-sub-card-title">Ukuran:</h4>
-                            <ul>
-                                <li>Berbagai ukuran (1-2 ekor, 5 ekor, 10 ekor, dll.).</li>
-                            </ul>
-                        </div>
-                        <div class="sub-sub-card">
-                            <h4 class="sub-sub-card-title">Fitur Unggulan:</h4>
-                            <ul>
-                                <li>Mudah dipindahkan & hemat ruang penyimpanan.</li>
-                                <li>Higienis & tahan lama.</li>
-                                <li>Harga kompetitif.</li>
-                            </ul>
-                        </div>
-                        <div class="sub-sub-card">
-                            <h4 class="sub-sub-card-title">Target Pasar:</h4>
-                            <ul>
-                                <li>Peternak skala kecil-menengah (butuh fleksibilitas).</li>
-                                <li>Masyarakat (kurban/akikah, kandang sementara).</li>
-                                <li>Penyelenggara acara hewan/pameran.</li>
-                                <li>Pemilik hewan peliharaan besar (kandang *outdoor*).</li>
-                            </ul>
-                        </div>
-                        <div class="sub-sub-card">
-                            <h4 class="sub-sub-card-title">Operasional Produksi:</h4>
-                            <ul>
-                                <li>Finalisasi desain modular.</li>
-                                <li>Pemilihan material efisien & tahan lama.</li>
-                                <li>Proses produksi (pemotongan, sambungan, *finishing*).</li>
-                                <li>Perakitan & kontrol kualitas.</li>
-                                <li>Manajemen inventaris bahan baku.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="subsection-card">
-                        <h3 class="subsection-card-title"><span class="icon">♻️</span> 1.3. Produk Sampingan</h3>
-                        <div class="sub-sub-card">
-                            <h4 class="sub-sub-card-title">Pupuk Organik Kesumah Farm:</h4>
-                            <ul>
-                                <li>Deskripsi: Kompos berkualitas tinggi dari kotoran hewan.</li>
-                                <li>Target: Petani lokal, pemilik kebun pribadi.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-branch">
-            <div id="strategiBisnisTitle" class="section-title">
-                <span class="icon">📈</span> 2. STRATEGI BISNIS & PEMASARAN <span class="arrow-icon">▶</span>
-            </div>
-            <div id="strategiBisnisContent" class="collapsible-content expanded">
-                <div class="subsection-container">
-                    <div class="subsection-card">
-                        <h3 class="subsection-card-title"><span class="icon">🔬</span> 2.1. Analisis Pasar</h3>
-                        <div class="sub-sub-card">
-                            <h4 class="sub-sub-card-title">Kompetitor:</h4>
-                            <ul>
-                                <li>Peternak tradisional (kurang sistematis).</li>
-                                <li>Peternak besar (kurang personal).</li>
-                                <li>Produsen kandang permanen.</li>
-                            </ul>
-                        </div>
-                        <div class="sub-sub-card">
-                            <h4 class="sub-sub-card-title">Keunggulan Kompetitif (USP):</h4>
-                            <ul>
-                                <li>Fasilitas modern & bersih (penitipan).</li>
-                                <li>Perawatan optimal & transparan berbasis teknologi.</li>
-                                <li>Kandang portable inovatif (kuat, mudah rakit, harga kompetitif).</li>
-                                <li>Lokasi strategis & sinergi produk.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="subsection-card">
-                        <h3 class="subsection-card-title"><span class="icon">🌐</span> 2.2. Pemasaran Digital</h3>
-                        <ul>
-                            <li>Media Sosial (@KesumahFarm di FB/IG): Foto/video fasilitas, perawatan, testimoni, demo kandang portable.</li>
-                            <li>Grup Komunitas Online: WA/FB grup peternak, jual beli hewan, kurban/akikah.</li>
-                            <li>Google My Business: Mudah ditemukan lokal.</li>
-                            <li>Konten Edukatif: Tips perawatan, panduan kandang, tutorial perakitan.</li>
-                            <li>E-commerce Sederhana (opsional): Tokopedia/Shopee untuk kandang.</li>
-                        </ul>
-                    </div>
-                    <div class="subsection-card">
-                        <h3 class="subsection-card-title"><span class="icon">🤝</span> 2.3. Pemasaran Langsung & Kemitraan</h3>
-                        <ul>
-                            <li>Jaringan Lokal: Toko pakan, penjual hewan, petani, toko bangunan.</li>
-                            <li>Partisipasi Acara: Pameran hewan, bazar kurban/akikah, UMKM.</li>
-                            <li>Kemitraan Strategis: Panitia kurban masjid/lembaga, katering akikah.</li>
-                        </ul>
-                    </div>
-                    <div class="subsection-card">
-                        <h3 class="subsection-card-title"><span class="icon">💲</span> 2.4. Strategi Harga</h3>
-                        <ul>
-                            <li>Layanan Penitipan: Kompetitif (per hari/minggu/bulan, variasi layanan).</li>
-                            <li>Kandang Portable: Kompetitif (kualitas, kemudahan, daya tahan), paket *bundling*.</li>
-                            <li>Pupuk Organik: Kompetitif dengan pasar.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-branch">
-            <div id="manajemenOperasionalTitle" class="section-title">
-                <span class="icon">⚙️</span> 3. MANAJEMEN & OPERASIONAL UMUM <span class="arrow-icon">▶</span>
-            </div>
-            <div id="manajemenOperasionalContent" class="collapsible-content expanded">
-                <div class="subsection-container">
-                    <div class="subsection-card">
-                        <h3 class="subsection-card-title"><span class="icon">🧑‍🤝‍🧑</span> 3.1. Struktur Organisasi (Awal)</h3>
-                        <ul>
-                            <li>Manajer Peternakan (Pemilik/Anda).</li>
-                            <li>Staf Lapangan (1-2 Orang).</li>
-                        </ul>
-                    </div>
-                    <div class="subsection-card">
-                        <h3 class="subsection-card-title"><span class="icon">🎓</span> 3.2. Kualifikasi Tim</h3>
-                        <ul>
-                            <li>Manajer: Komunikasi, operasional, akuntansi dasar, teknis kandang, teknologi.</li>
-                            <li>Staf Lapangan: Pekerja keras, bertanggung jawab, menyukai hewan, dasar pertukangan, mau dilatih digital.</li>
-                        </ul>
-                    </div>
-                    <div class="subsection-card">
-                        <h3 class="subsection-card-title"><span class="icon">💻</span> 3.3. Penerapan Teknologi Tepat Guna</h3>
-                        <ul>
-                            <li>Pencatatan Digital (Google Sheets/aplikasi).</li>
-                            <li>CCTV (opsional): Pemantauan keamanan & observasi.</li>
-                        </ul>
-                    </div>
-                    <div class="subsection-card">
-                        <h3 class="subsection-card-title"><span class="icon">🗑️</span> 3.4. Pengelolaan Limbah</h3>
-                        <ul>
-                            <li>Kotoran hewan & sisa produksi kandang diolah jadi pupuk kompos/daur ulang.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-branch">
-            <div id="rencanaKeuanganTitle" class="section-title">
-                <span class="icon">💰</span> 4. RENCANA KEUANGAN <span class="arrow-icon">▶</span>
-            </div>
-            <div id="rencanaKeuanganContent" class="collapsible-content expanded">
-                <div class="subsection-container">
-                    <div class="subsection-card">
-                        <h3 class="subsection-card-title"><span class="icon">💸</span> 4.1. Estimasi Biaya Investasi Awal</h3>
-                        <ul>
-                            <li>Sewa Lahan, Pembangunan Kandang Penitipan, Peralatan Peternakan Dasar, Peralatan Produksi Kandang Portable, Teknologi Tepat Guna Awal, Persiapan Lahan Pakan, Perizinan Awal.</li>
-                            <li>**Total Estimasi: Rp 39.300.000 - Rp 69.500.000**</li>
-                        </ul>
-                    </div>
-                    <div class="subsection-card">
-                        <h3 class="subsection-card-title"><span class="icon">🧾</span> 4.2. Estimasi Biaya Operasional Bulanan</h3>
-                        <ul>
-                            <li>Pakan, Kesehatan Hewan, Gaji Tenaga Lapangan, Listrik & Air, Bahan Baku Kandang Portable, Pemasaran Digital, Biaya Tak Terduga.</li>
-                            <li>**Total Estimasi: Rp 8.600.000 - Rp 17.200.000**</li>
-                        </ul>
-                    </div>
-                    <div class="subsection-card">
-                        <h3 class="subsection-card-title"><span class="icon">📊</span> 4.3. Proyeksi Pendapatan Bulanan</h3>
-                        <ul>
-                            <li>Penitipan, Penjualan Kandang Portable, Penjualan Pupuk Organik.</li>
-                            <li>**Total Proyeksi: Rp 20.625.000 - Rp 21.125.000**</li>
-                        </ul>
-                    </div>
-                    <div class="subsection-card">
-                        <h3 class="subsection-card-title"><span class="icon">📈</span> 4.4. Analisis Titik Impas (BEP)</h3>
-                        <ul>
-                            <li>Diharapkan lebih cepat tercapai (4-8 bulan) karena diversifikasi pendapatan.</li>
-                        </ul>
-                    </div>
-                    <div class="subsection-card">
-                        <h3 class="subsection-card-title"><span class="icon">🏦</span> 4.5. Strategi Pendanaan</h3>
-                        <ul>
-                            <li>Modal pribadi awal, akumulasi keuntungan untuk ekspansi.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-branch">
-            <div id="manajemenRisikoTitle" class="section-title">
-                <span class="icon">⚠️</span> 5. MANAJEMEN RISIKO <span class="arrow-icon">▶</span>
-            </div>
-            <div id="manajemenRisikoContent" class="collapsible-content expanded">
-                <div class="subsection-container">
-                    <div class="subsection-card">
-                        <ul>
-                            <li>Kesehatan Hewan Titipan.</li>
-                            <li>Penurunan Okupansi Penitipan.</li>
-                            <li>Penurunan Penjualan Kandang.</li>
-                            <li>Kerusakan Fasilitas/Produk.</li>
-                            <li>Keuangan (arus kas).</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-branch">
-            <div id="rencanaPengembanganTitle" class="section-title">
-                <span class="icon">🚀</span> 6. RENCANA PENGEMBANGAN & SKALABILITAS <span class="arrow-icon">▶</span>
-            </div>
-            <div id="rencanaPengembanganContent" class="collapsible-content expanded">
-                <div class="timeline-container">
-                    <div class="timeline-item left">
-                        <div class="timeline-content">
-                            <h3><span class="icon">🌱</span> 6.1. Fase 1 (Bulan 1-12): Fokus Penitipan, Kandang Portable & Pembangunan Reputasi</h3>
-                            <ul>
-                                <li>Stabilisasi operasional layanan penitipan dan produksi/penjualan kandang portable.</li>
-                                <li>Pembangunan basis pelanggan setia.</li>
-                                <li>Optimalisasi efisiensi perawatan hewan dan proses produksi kandang.</li>
-                                <li>Pengumpulan modal dari keuntungan kedua lini bisnis.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item right">
-                        <div class="timeline-content">
-                            <h3><span class="icon">📈</span> 6.2. Fase 2 (Bulan 13-24): Transisi ke Peternakan Domba Penuh & Peningkatan Produksi Kandang</h3>
-                            <ul>
-                                <li>Secara bertahap mulai membeli bibit domba sendiri (indukan) menggunakan modal dari keuntungan.</li>
-                                <li>Mengalokasikan sebagian kandang untuk domba milik sendiri (penggemukan/breeding).</li>
-                                <li>Mulai menerapkan program seleksi genetik sederhana pada domba milik sendiri.</li>
-                                <li>Memperluas lahan pakan hijauan jika memungkinkan.</li>
-                                <li>Meningkatkan kapasitas produksi kandang portable dan diversifikasi model.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item left">
-                        <div class="timeline-content">
-                            <h3><span class="icon">🌟</span> 6.3. Fase 3 (Bulan 25+): Peternakan Domba Modern Terintegrasi & Pusat Solusi Kandang</h3>
-                            <ul>
-                                <li>Populasi domba sendiri signifikan.</li>
-                                <li>Layanan penitipan & kandang tetap berjalan sebagai pendukung pendapatan dan *cash flow* stabil.</li>
-                                <li>Fokus pada penjualan domba/bibit.</li>
-                                <li>Pengembangan produk pupuk organik skala lebih besar.</li>
-                                <li>Potensi investasi pada teknologi yang lebih canggih (misal: *smart feeder* otomatis penuh, sistem irigasi pintar) jika volume dan profitabilitas mendukung.</li>
-                                <li>Ekspansi pasar regional.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 font-inter text-gray-800">
+      <Header navigateTo={navigateTo} currentPage={currentPage} />
+      <main className="container mx-auto px-4 py-8">
+        {currentPage === 'home' && <HomePage navigateTo={navigateTo} />}
+        {currentPage === 'services' && <ServicesPage />}
+        {currentPage === 'products' && <ProductsPage />}
+        {currentPage === 'about' && <AboutPage />}
+        {currentPage === 'contact' && <ContactPage />}
+      </main>
+      <Footer />
     </div>
+  );
+};
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const sectionTitles = document.querySelectorAll('.section-title');
+// Header Component
+const Header = ({ navigateTo, currentPage }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
-            sectionTitles.forEach(title => {
-                title.addEventListener('click', () => {
-                    // Toggle section yang diklik
-                    const contentId = title.id.replace('Title', 'Content');
-                    const contentDiv = document.getElementById(contentId);
-                    const arrowIcon = title.querySelector('.arrow-icon');
+  const navItems = [
+    { name: 'Beranda', page: 'home' },
+    { name: 'Layanan', page: 'services' },
+    { name: 'Produk', page: 'products' },
+    { name: 'Tentang Kami', page: 'about' },
+    { name: 'Kontak', page: 'contact' },
+  ];
 
-                    if (contentDiv) {
-                        // Close other expanded sections only if the clicked section is currently closed
-                        if (!contentDiv.classList.contains('expanded')) {
-                            sectionTitles.forEach(otherTitle => {
-                                const otherContentId = otherTitle.id.replace('Title', 'Content');
-                                const otherContentDiv = document.getElementById(otherContentId);
-                                const otherArrowIcon = otherTitle.querySelector('.arrow-icon');
-                                if (otherContentDiv && otherContentDiv.classList.contains('expanded')) {
-                                    otherContentDiv.classList.remove('expanded');
-                                    otherArrowIcon.classList.remove('rotated');
-                                }
-                            });
-                        }
-                        
-                        contentDiv.classList.toggle('expanded');
-                        arrowIcon.classList.toggle('rotated');
-                    }
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+  return (
+    <header className="bg-emerald-700 shadow-lg py-4 px-6 sticky top-0 z-50 rounded-b-xl">
+      <div className="container mx-auto flex justify-between items-center">
+        <div className="flex items-center space-x-3">
+          {/* Farm Icon - Placeholder for a more detailed SVG or image */}
+          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9.5a2.5 2.5 0 110-5H12m-6 0h4"></path>
+          </svg>
+          <h1 className="text-2xl font-bold text-white">Kesumah Farm</h1>
+        </div>
+
+        {/* Mobile menu button */}
+        <button
+          className="md:hidden text-white focus:outline-none"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle navigation"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            {isOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
+
+        {/* Desktop navigation */}
+        <nav className="hidden md:flex space-x-6">
+          {navItems.map((item) => (
+            <NavItem
+              key={item.page}
+              name={item.name}
+              page={item.page}
+              navigateTo={navigateTo}
+              isActive={currentPage === item.page}
+            />
+          ))}
+        </nav>
+      </div>
+
+      {/* Mobile menu dropdown */}
+      {isOpen && (
+        <nav className="md:hidden mt-4 bg-emerald-600 rounded-lg py-2">
+          {navItems.map((item) => (
+            <NavItem
+              key={item.page}
+              name={item.name}
+              page={item.page}
+              navigateTo={(page) => { navigateTo(page); setIsOpen(false); }} // Close menu on click
+              isActive={currentPage === item.page}
+              isMobile={true}
+            />
+          ))}
+        </nav>
+      )}
+    </header>
+  );
+};
+
+// Navigation Item Component
+const NavItem = ({ name, page, navigateTo, isActive, isMobile = false }) => {
+  const baseClasses = `block px-4 py-2 rounded-lg transition-all duration-300 ease-in-out font-medium`;
+  const activeClasses = `bg-emerald-500 text-white shadow-md`;
+  const inactiveClasses = `text-emerald-100 hover:bg-emerald-600 hover:text-white`;
+
+  return (
+    <button
+      onClick={() => navigateTo(page)}
+      className={`${baseClasses} ${isActive ? activeClasses : inactiveClasses} ${isMobile ? 'w-full text-left' : ''}`}
+    >
+      {name}
+    </button>
+  );
+};
+
+// Footer Component
+const Footer = () => {
+  return (
+    <footer className="bg-emerald-800 text-emerald-100 py-8 mt-12 rounded-t-xl">
+      <div className="container mx-auto text-center text-sm">
+        <p>&copy; {new Date().getFullYear()} Kesumah Farm. Semua Hak Dilindungi.</p>
+        <p>Inovasi Peternakan Domba & Solusi Kandang Terpadu.</p>
+      </div>
+    </footer>
+  );
+};
+
+// Home Page Component
+const HomePage = ({ navigateTo }) => {
+  return (
+    <section className="text-center py-16">
+      {/* Hero Section */}
+      <div className="relative bg-gradient-to-r from-emerald-600 to-green-700 text-white p-8 md:p-16 rounded-3xl shadow-xl overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          {/* Placeholder for a subtle background pattern or image */}
+          <svg className="w-full h-full" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+            <pattern id="pattern-circles" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.1)" />
+            </pattern>
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-circles)" />
+          </svg>
+        </div>
+        <div className="relative z-10">
+          <h2 className="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
+            Kesumah Farm: Solusi Peternakan Domba Modern Anda
+          </h2>
+          <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
+            Penyedia layanan penitipan, _breeding_ domba unggul, dan kandang _portable_ inovatif di Majalengka.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <button
+              onClick={() => navigateTo('services')}
+              className="bg-white text-emerald-700 px-8 py-3 rounded-full font-bold text-lg shadow-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300"
+            >
+              Lihat Layanan Kami
+            </button>
+            <button
+              onClick={() => navigateTo('contact')}
+              className="border border-white text-white px-8 py-3 rounded-full font-bold text-lg shadow-lg hover:bg-white hover:text-emerald-700 transform hover:scale-105 transition-all duration-300"
+            >
+              Hubungi Kami
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* About Section Snippet */}
+      <div className="bg-white p-8 md:p-12 rounded-3xl shadow-lg mt-12">
+        <h3 className="text-3xl font-bold text-emerald-700 mb-6">Tentang Kesumah Farm</h3>
+        <p className="text-lg text-gray-700 max-w-4xl mx-auto mb-6">
+          Kesumah Farm hadir sebagai solusi terpadu untuk kebutuhan peternakan domba Anda. Berlokasi strategis di Majalengka, kami berkomitmen menyediakan layanan profesional mulai dari penitipan domba yang aman, produksi kandang _portable_ yang inovatif, hingga program _breeding_ domba unggul.
+        </p>
+        <button
+          onClick={() => navigateTo('about')}
+          className="text-emerald-600 hover:text-emerald-800 font-semibold transition-colors duration-300"
+        >
+          Baca Selengkapnya Tentang Kami &rarr;
+        </button>
+      </div>
+
+      {/* Key Services Highlight */}
+      <div className="mt-16">
+        <h3 className="text-4xl font-bold text-emerald-700 mb-10">Layanan Unggulan Kami</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Service Card 1: Penitipan */}
+          <div className="bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+            <div className="text-emerald-500 mb-4">
+              <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1H11m-4 0h7a2 2 0 002-2v-7M7 12h4"></path>
+              </svg>
+            </div>
+            <h4 className="text-xl font-bold text-gray-900 mb-3">Layanan Penitipan Domba</h4>
+            <p className="text-gray-600 mb-4">
+              Fasilitas aman, bersih, pakan berkualitas, dan _monitoring_ digital untuk domba titipan Anda.
+            </p>
+            <button
+              onClick={() => navigateTo('services')}
+              className="text-emerald-600 hover:text-emerald-800 font-semibold"
+            >
+              Pelajari Lebih Lanjut &rarr;
+            </button>
+          </div>
+
+          {/* Service Card 2: Kandang Portable */}
+          <div className="bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+            <div className="text-emerald-500 mb-4">
+              <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+              </svg>
+            </div>
+            <h4 className="text-xl font-bold text-gray-900 mb-3">Kandang _Portable_ Inovatif</h4>
+            <p className="text-gray-600 mb-4">
+              Produksi kandang modular yang mudah dirakit, kuat, dan higienis untuk berbagai kebutuhan.
+            </p>
+            <button
+              onClick={() => navigateTo('products')}
+              className="text-emerald-600 hover:text-emerald-800 font-semibold"
+            >
+              Lihat Produk &rarr;
+            </button>
+          </div>
+
+          {/* Service Card 3: Breeding */}
+          <div className="bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+            <div className="text-emerald-500 mb-4">
+              <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.747 0-3.332.477-4.5 1.253"></path>
+              </svg>
+            </div>
+            <h4 className="text-xl font-bold text-gray-900 mb-3">Sistem _Breeding_ Domba</h4>
+            <p className="text-gray-600 mb-4">
+              Program pengembangbiakan terencana untuk menghasilkan bibit domba unggul dan berkualitas.
+            </p>
+            <button
+              onClick={() => navigateTo('services')}
+              className="text-emerald-600 hover:text-emerald-800 font-semibold"
+            >
+              Pelajari Lebih Lanjut &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Call to Action Section */}
+      <div className="bg-emerald-600 text-white p-8 md:p-12 rounded-3xl shadow-xl mt-16">
+        <h3 className="text-3xl md:text-4xl font-bold mb-4">Siap Bermitra dengan Kesumah Farm?</h3>
+        <p className="text-lg mb-8 max-w-3xl mx-auto">
+          Kami siap membantu Anda dalam kebutuhan peternakan domba. Hubungi kami untuk konsultasi gratis!
+        </p>
+        <button
+          onClick={() => navigateTo('contact')}
+          className="bg-white text-emerald-700 px-8 py-3 rounded-full font-bold text-lg shadow-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300"
+        >
+          Hubungi Kami Sekarang
+        </button>
+      </div>
+    </section>
+  );
+};
+
+// Services Page Component
+const ServicesPage = () => {
+  return (
+    <section className="py-12">
+      <h2 className="text-4xl font-extrabold text-emerald-700 text-center mb-12">Layanan Kami</h2>
+
+      {/* Layanan Penitipan Domba */}
+      <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl mb-12">
+        <h3 className="text-3xl font-bold text-gray-900 mb-6 flex items-center justify-center space-x-3">
+          <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1H11m-4 0h7a2 2 0 002-2v-7M7 12h4"></path>
+          </svg>
+          <span>Layanan Penitipan Domba</span>
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <img
+              src="https://placehold.co/600x400/D1FAE5/065F46?text=Kandang+Penitipan+Domba"
+              alt="Kandang Penitipan Domba"
+              className="rounded-xl shadow-md w-full h-auto object-cover"
+            />
+          </div>
+          <div>
+            <p className="text-lg text-gray-700 mb-4">
+              Kesumah Farm menyediakan fasilitas penitipan domba yang aman, bersih, dan nyaman. Kami memahami bahwa tidak semua pemilik memiliki lahan atau waktu yang cukup untuk merawat domba mereka. Oleh karena itu, kami hadir dengan solusi penitipan profesional yang menjamin kesejahteraan hewan Anda.
+            </p>
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-6">
+              <li>Fasilitas kandang terawat dengan sanitasi optimal.</li>
+              <li>Pakan berkualitas dan air minum bersih tersedia setiap hari.</li>
+              <li>Perawatan kesehatan dasar dan _monitoring_ kondisi domba secara rutin.</li>
+              <li>Laporan digital berkala (foto/video/teks) langsung ke pemilik.</li>
+              <li>Tersedia untuk penitipan jangka pendek maupun jangka panjang.</li>
+            </ul>
+            <h4 className="text-xl font-semibold text-gray-800 mb-3">Opsi Penjualan Domba Titipan</h4>
+            <p className="text-gray-700">
+              Bagi pemilik yang ingin menjual domba titipannya, Kesumah Farm dapat memfasilitasi proses penjualan. Kami akan membantu memasarkan domba Anda ke jaringan pembeli kami dengan skema komisi yang transparan dan saling menguntungkan.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Sistem Breeding Domba */}
+      <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl">
+        <h3 className="text-3xl font-bold text-gray-900 mb-6 flex items-center justify-center space-x-3">
+          <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.747 0-3.332.477-4.5 1.253"></path>
+          </svg>
+          <span>Sistem _Breeding_ Domba</span>
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <p className="text-lg text-gray-700 mb-4">
+              Kesumah Farm berkomitmen untuk berkontribusi pada peningkatan kualitas genetik domba di Indonesia melalui program _breeding_ yang terencana dan ilmiah. Kami fokus menghasilkan bibit domba unggul yang sehat, produktif, dan adaptif terhadap lingkungan lokal.
+            </p>
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-6">
+              <li>Seleksi indukan jantan dan betina dengan genetik terbaik.</li>
+              <li>Manajemen reproduksi terencana untuk efisiensi _breeding_.</li>
+              <li>Perawatan intensif untuk anak domba sejak lahir.</li>
+              <li>Pencatatan silsilah dan data performa yang lengkap.</li>
+              <li>Menyediakan bibit domba berkualitas untuk peternak lain.</li>
+            </ul>
+          </div>
+          <div>
+            <img
+              src="https://placehold.co/600x400/D1FAE5/065F46?text=Domba+Breeding+Kesumah+Farm"
+              alt="Domba Breeding Kesumah Farm"
+              className="rounded-xl shadow-md w-full h-auto object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Products Page Component
+const ProductsPage = () => {
+  return (
+    <section className="py-12">
+      <h2 className="text-4xl font-extrabold text-emerald-700 text-center mb-12">Produk Kami</h2>
+
+      {/* Kandang Portable Bongkar Pasang */}
+      <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl mb-12">
+        <h3 className="text-3xl font-bold text-gray-900 mb-6 flex items-center justify-center space-x-3">
+          <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+          </svg>
+          <span>Kandang _Portable_ Bongkar Pasang</span>
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <img
+              src="https://placehold.co/600x400/D1FAE5/065F46?text=Kandang+Portable+Kesumah+Farm"
+              alt="Kandang Portable Kesumah Farm"
+              className="rounded-xl shadow-md w-full h-auto object-cover"
+            />
+          </div>
+          <div>
+            <p className="text-lg text-gray-700 mb-4">
+              Kesumah Farm menghadirkan solusi kandang modern yang fleksibel dan efisien. Kandang _portable_ kami dirancang untuk kemudahan perakitan dan pembongkaran, menjadikannya pilihan ideal bagi peternak dengan ruang terbatas atau kebutuhan musiman.
+            </p>
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-6">
+              <li>Desain modular, mudah dirakit tanpa alat khusus.</li>
+              <li>Material ringan namun kuat (baja ringan, PVC tebal, bambu/kayu olahan).</li>
+              <li>Higienis dengan desain lantai panggung untuk kebersihan optimal.</li>
+              <li>Tersedia dalam berbagai ukuran: 1-2 ekor, 5 ekor, 10 ekor, dan kustom.</li>
+              <li>Cocok untuk domba, kambing, atau hewan ternak kecil lainnya.</li>
+            </ul>
+            <p className="text-gray-700 font-semibold">
+              Hubungi kami untuk informasi lebih lanjut mengenai varian ukuran dan harga.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Pupuk Organik Kesumah Farm */}
+      <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl">
+        <h3 className="text-3xl font-bold text-gray-900 mb-6 flex items-center justify-center space-x-3">
+          <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21H3v-3h12.263a2 2 0 001.789-2.894l-3.5-7A2 2 0 0014 10zM2 10h2.764a2 2 0 001.789-2.894l-3.5-7A2 2 0 002 10z"></path>
+          </svg>
+          <span>Pupuk Organik Kesumah Farm</span>
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <p className="text-lg text-gray-700 mb-4">
+              Sebagai bagian dari komitmen kami terhadap keberlanjutan, Kesumah Farm mengolah limbah kotoran domba menjadi pupuk organik berkualitas tinggi. Pupuk ini kaya nutrisi esensial untuk pertumbuhan tanaman, cocok untuk pertanian organik dan kebun rumah.
+            </p>
+            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-6">
+              <li>Dibuat dari 100% kotoran domba dan sisa biomassa.</li>
+              <li>Meningkatkan kesuburan tanah dan kesehatan tanaman.</li>
+              <li>Ramah lingkungan dan bebas bahan kimia.</li>
+              <li>Tersedia dalam kemasan praktis untuk berbagai kebutuhan.</li>
+            </ul>
+          </div>
+          <div>
+            <img
+              src="https://placehold.co/600x400/D1FAE5/065F46?text=Pupuk+Organik+Kesumah+Farm"
+              alt="Pupuk Organik Kesumah Farm"
+              className="rounded-xl shadow-md w-full h-auto object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// About Page Component
+const AboutPage = () => {
+  return (
+    <section className="py-12">
+      <h2 className="text-4xl font-extrabold text-emerald-700 text-center mb-12">Tentang Kami</h2>
+
+      <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl mb-12">
+        <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">Visi & Misi Kami</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h4 className="text-2xl font-semibold text-emerald-700 mb-3">Visi</h4>
+            <p className="text-lg text-gray-700">
+              Menjadi pusat layanan penitipan dan _breeding_ domba terkemuka serta penyedia solusi kandang inovatif yang fleksibel di Jawa Barat, dengan komitmen pada keberlanjutan dan kesejahteraan hewan.
+            </p>
+          </div>
+          <div>
+            <h4 className="text-2xl font-semibold text-emerald-700 mb-3">Misi</h4>
+            <ul className="list-disc list-inside text-lg text-gray-700 space-y-2">
+              <li>Menyediakan layanan penitipan domba yang aman, sehat, dan transparan melalui adopsi teknologi.</li>
+              <li>Mengembangkan sistem _breeding_ domba berkualitas untuk menghasilkan bibit unggul dan mendukung ketahanan pangan lokal.</li>
+              <li>Memproduksi kandang _portable_ bongkar pasang yang ergonomis, efisien, dan ramah lingkungan.</li>
+              <li>Membangun komunitas peternak yang kolaboratif melalui edukasi dan kemitraan strategis.</li>
+              <li>Menerapkan prinsip-prinsip peternakan modern dan berkelanjutan di setiap aspek operasional.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl mb-12">
+        <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">Nilai Inti Kami</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {['Profesionalisme', 'Inovasi', 'Kesejahteraan Hewan', 'Transparansi', 'Keberlanjutan', 'Kolaborasi'].map((value, index) => (
+            <div key={index} className="flex items-center space-x-3 bg-emerald-50 p-4 rounded-xl shadow-sm">
+              <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span className="text-lg font-medium text-gray-800">{value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl">
+        <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">Lokasi & Tim</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h4 className="text-2xl font-semibold text-emerald-700 mb-3">Lokasi Kami</h4>
+            <p className="text-lg text-gray-700 mb-4">
+              Kesumah Farm berlokasi di:
+              <br />
+              **Blok Entuk, Desa Beusi, Kecamatan Gandawesi, Kabupaten Majalengka, Jawa Barat.**
+            </p>
+            <p className="text-gray-600 text-sm italic">
+              Lokasi strategis untuk memudahkan akses bagi Anda.
+            </p>
+          </div>
+          <div>
+            <h4 className="text-2xl font-semibold text-emerald-700 mb-3">Tim Kami</h4>
+            <p className="text-lg text-gray-700 mb-4">
+              Tim Kesumah Farm terdiri dari individu-individu yang berdedikasi dan berpengalaman dalam peternakan domba. Kami memiliki Manajer Peternakan yang visioner dan Staf Lapangan yang terampil, semuanya berkomitmen untuk memberikan layanan terbaik dan menjaga kesejahteraan hewan.
+            </p>
+            <img
+              src="https://placehold.co/600x400/D1FAE5/065F46?text=Tim+Kesumah+Farm"
+              alt="Tim Kesumah Farm"
+              className="rounded-xl shadow-md w-full h-auto object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Contact Page Component
+const ContactPage = () => {
+  return (
+    <section className="py-12">
+      <h2 className="text-4xl font-extrabold text-emerald-700 text-center mb-12">Hubungi Kami</h2>
+
+      <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Contact Information */}
+          <div>
+            <h3 className="text-3xl font-bold text-gray-900 mb-6">Informasi Kontak</h3>
+            <div className="space-y-6">
+              <div className="flex items-center space-x-4">
+                <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                </svg>
+                <div>
+                  <p className="text-lg font-semibold text-gray-800">WhatsApp</p>
+                  <a href="https://wa.me/6281320865869" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline text-xl">
+                    081320865869
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-center space-x-4">
+                <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-1 13a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h16a2 2 0 012 2v14z"></path>
+                </svg>
+                <div>
+                  <p className="text-lg font-semibold text-gray-800">Email</p>
+                  <a href="mailto:kesumahfarm@gmail.com" className="text-emerald-600 hover:underline text-xl">
+                    kesumahfarm@gmail.com
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-center space-x-4">
+                <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0L6.343 16.657a8 8 0 1111.314 0z"></path>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                <div>
+                  <p className="text-lg font-semibold text-gray-800">Alamat</p>
+                  <p className="text-gray-700 text-xl">Blok Entuk, Desa Beusi, Kecamatan Gandawesi, Kabupaten Majalengka, Jawa Barat.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div>
+            <h3 className="text-3xl font-bold text-gray-900 mb-6">Kirim Pesan kepada Kami</h3>
+            <form className="space-y-4">
+              <div>
+                <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Nama Lengkap</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  className="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  placeholder="Nama Anda"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  placeholder="email@contoh.com"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="message" className="block text-gray-700 text-sm font-bold mb-2">Pesan Anda</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  className="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  placeholder="Tulis pesan Anda di sini..."
+                  required
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                className="bg-emerald-600 text-white px-6 py-3 rounded-full font-bold text-lg shadow-lg hover:bg-emerald-700 transform hover:scale-105 transition-all duration-300 w-full md:w-auto"
+              >
+                Kirim Pesan
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {/* Map Placeholder */}
+      <div className="bg-white p-6 rounded-3xl shadow-xl text-center">
+        <h3 className="text-3xl font-bold text-gray-900 mb-6">Lokasi Kami di Peta</h3>
+        <img
+          src="https://placehold.co/1000x400/D1FAE5/065F46?text=Peta+Lokasi+Kesumah+Farm"
+          alt="Peta Lokasi Kesumah Farm"
+          className="rounded-xl shadow-md w-full h-auto object-cover"
+        />
+        <p className="text-gray-600 mt-4 text-sm">
+          Anda bisa menemukan kami dengan mudah menggunakan peta di atas.
+        </p>
+      </div>
+    </section>
+  );
+};
+
+export default App;
