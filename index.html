@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kesumah Farm: Solusi Peternakan Domba Modern Anda</title>
+    <title>KESUMAH FARM: Solusi Peternakan Domba Modern Anda</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts - Inter -->
@@ -15,6 +15,11 @@
             padding: 0;
             box-sizing: border-box;
             background-color: #ECFDF5; /* emerald-50 */
+            /* Added subtle background pattern for the body */
+            background-image: url('https://placehold.co/1920x1080/ECFDF5/D1FAE5?text=Background+Pattern');
+            background-repeat: repeat;
+            background-size: 200px; /* Adjust size as needed */
+            background-attachment: fixed;
         }
         /* Custom Tailwind Colors (matching React version) */
         :root {
@@ -57,11 +62,9 @@
     <header class="bg-emerald-700 shadow-lg py-4 px-6 sticky top-0 z-50 rounded-b-xl">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <!-- Farm Icon -->
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9.5a2.5 2.5 0 110-5H12m-6 0h4"></path>
-                </svg>
-                <h1 class="text-2xl font-bold text-white">Kesumah Farm</h1>
+                <!-- Company Logo Image -->
+                <img src="https://placehold.co/40x40/FFFFFF/047857?text=Logo" alt="Kesumah Farm Logo" class="w-10 h-10 rounded-full shadow-md">
+                <h1 class="text-2xl font-bold text-white">KESUMAH FARM</h1>
             </div>
 
             <!-- Mobile menu button -->
@@ -110,10 +113,10 @@
                 </div>
                 <div class="relative z-10">
                     <h2 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
-                        Kesumah Farm: Solusi Peternakan Domba Modern Anda
+                        KESUMAH FARM : Solusi Peternakan Domba Modern Anda
                     </h2>
                     <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
-                        Penyedia layanan penitipan, _breeding_ domba unggul, dan kandang _portable_ inovatif di Majalengka.
+                        Penyedia layanan penitipan, breeding domba unggul, dan kandang portable inovatif di Majalengka.
                     </p>
                     <div class="flex flex-col sm:flex-row justify-center gap-4">
                         <button class="navigate-button bg-white text-emerald-700 px-8 py-3 rounded-full font-bold text-lg shadow-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300" data-page="services">
@@ -126,15 +129,45 @@
                 </div>
             </div>
 
+            <!-- Hero Image -->
+            <div class="mt-8 rounded-3xl overflow-hidden shadow-xl">
+                <img src="https://placehold.co/1200x600/D1FAE5/065F46?text=Domba+di+Padang+Rumput" alt="Domba di Padang Rumput" class="w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/1200x600/D1FAE5/065F46?text=Gambar+Tidak+Tersedia';">
+            </div>
+
             <!-- About Section Snippet -->
-            <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg mt-12">
-                <h3 class="text-3xl font-bold text-emerald-700 mb-6">Tentang Kesumah Farm</h3>
-                <p class="text-lg text-gray-700 max-w-4xl mx-auto mb-6">
-                    Kesumah Farm hadir sebagai solusi terpadu untuk kebutuhan peternakan domba Anda. Berlokasi strategis di Majalengka, kami berkomitmen menyediakan layanan profesional mulai dari penitipan domba yang aman, produksi kandang _portable_ yang inovatif, hingga program _breeding_ domba unggul.
-                </p>
-                <button class="navigate-button text-emerald-600 hover:text-emerald-800 font-semibold transition-colors duration-300" data-page="about">
-                    Baca Selengkapnya Tentang Kami &rarr;
-                </button>
+            <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg mt-12 flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-1/2">
+                    <img src="https://placehold.co/600x400/D1FAE5/065F46?text=Peternak+dan+Domba" alt="Peternak dan Domba" class="rounded-xl shadow-md w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/D1FAE5/065F46?text=Gambar+Tidak+Tersedia';">
+                </div>
+                <div class="md:w-1/2 text-left">
+                    <h3 class="text-3xl font-bold text-emerald-700 mb-6">Tentang Kesumah Farm</h3>
+                    <p class="text-lg text-gray-700 max-w-4xl mx-auto mb-6">
+                        Kesumah Farm hadir sebagai solusi terpadu untuk kebutuhan peternakan domba Anda. Berlokasi strategis di Majalengka, kami berkomitmen menyediakan layanan profesional mulai dari penitipan domba yang aman, produksi kandang portable yang inovatif, hingga program breeding domba unggul.
+                    </p>
+                    <button class="navigate-button text-emerald-600 hover:text-emerald-800 font-semibold transition-colors duration-300" data-page="about">
+                        Baca Selengkapnya Tentang Kami &rarr;
+                    </button>
+                </div>
+            </div>
+
+            <!-- New Section: Why Choose Us -->
+            <div class="bg-emerald-50 p-8 md:p-12 rounded-3xl shadow-lg mt-12">
+                <h3 class="text-3xl font-bold text-emerald-700 mb-8">Mengapa Memilih Kami?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <ul class="list-disc list-inside text-lg text-gray-700 space-y-3 text-left">
+                            <li>Pengalaman bertahun-tahun dalam peternakan domba modern.</li>
+                            <li>Fasilitas terawat dengan standar kebersihan tinggi.</li>
+                            <li>Tim ahli yang berdedikasi dan peduli terhadap hewan.</li>
+                            <li>Inovasi produk kandang yang efisien dan ramah lingkungan.</li>
+                            <li>Komitmen terhadap kualitas genetik domba unggul.</li>
+                            <li>Dukungan penuh untuk peternak dari skala kecil hingga besar.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <img src="https://placehold.co/600x400/D1FAE5/065F46?text=Mengapa+Pilih+Kami" alt="Mengapa Memilih Kami" class="rounded-xl shadow-md w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/D1FAE5/065F46?text=Gambar+Tidak+Tersedia';">
+                    </div>
+                </div>
             </div>
 
             <!-- Key Services Highlight -->
@@ -150,7 +183,7 @@
                         </div>
                         <h4 class="text-xl font-bold text-gray-900 mb-3">Layanan Penitipan Domba</h4>
                         <p class="text-gray-600 mb-4">
-                            Fasilitas aman, bersih, pakan berkualitas, dan _monitoring_ digital untuk domba titipan Anda.
+                            Fasilitas aman, bersih, pakan berkualitas, dan monitoring digital untuk domba titipan Anda.
                         </p>
                         <button class="navigate-button text-emerald-600 hover:text-emerald-800 font-semibold" data-page="services">
                             Pelajari Lebih Lanjut &rarr;
@@ -164,7 +197,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                             </svg>
                         </div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-3">Kandang _Portable_ Inovatif</h4>
+                        <h4 class="text-xl font-bold text-gray-900 mb-3">Kandang Portable Inovatif</h4>
                         <p class="text-gray-600 mb-4">
                             Produksi kandang modular yang mudah dirakit, kuat, dan higienis untuk berbagai kebutuhan.
                         </p>
@@ -180,7 +213,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.747 0-3.332.477-4.5 1.253"></path>
                             </svg>
                         </div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-3">Sistem _Breeding_ Domba</h4>
+                        <h4 class="text-xl font-bold text-gray-900 mb-3">Sistem Breeding Domba</h4>
                         <p class="text-gray-600 mb-4">
                             Program pengembangbiakan terencana untuk menghasilkan bibit domba unggul dan berkualitas.
                         </p>
@@ -226,7 +259,7 @@
                         <ul class="list-disc list-inside text-gray-700 space-y-2 mb-6">
                             <li>Fasilitas kandang terawat dengan sanitasi optimal.</li>
                             <li>Pakan berkualitas dan air minum bersih tersedia setiap hari.</li>
-                            <li>Perawatan kesehatan dasar dan _monitoring_ kondisi domba secara rutin.</li>
+                            <li>Perawatan kesehatan dasar dan monitoring kondisi domba secara rutin.</li>
                             <li>Laporan digital berkala (foto/video/teks) langsung ke pemilik.</li>
                             <li>Tersedia untuk penitipan jangka pendek maupun jangka panjang.</li>
                         </ul>
@@ -244,16 +277,16 @@
                     <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.747 0-3.332.477-4.5 1.253"></path>
                     </svg>
-                    <span>Sistem _Breeding_ Domba</span>
+                    <span>Sistem Breeding Domba</span>
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div>
                         <p class="text-lg text-gray-700 mb-4">
-                            Kesumah Farm berkomitmen untuk berkontribusi pada peningkatan kualitas genetik domba di Indonesia melalui program _breeding_ yang terencana dan ilmiah. Kami fokus menghasilkan bibit domba unggul yang sehat, produktif, dan adaptif terhadap lingkungan lokal.
+                            Kesumah Farm berkomitmen untuk berkontribusi pada peningkatan kualitas genetik domba di Indonesia melalui program breeding yang terencana dan ilmiah. Kami fokus menghasilkan bibit domba unggul yang sehat, produktif, dan adaptif terhadap lingkungan lokal.
                         </p>
                         <ul class="list-disc list-inside text-gray-700 space-y-2 mb-6">
                             <li>Seleksi indukan jantan dan betina dengan genetik terbaik.</li>
-                            <li>Manajemen reproduksi terencana untuk efisiensi _breeding_.</li>
+                            <li>Manajemen reproduksi terencana untuk efisiensi breeding.</li>
                             <li>Perawatan intensif untuk anak domba sejak lahir.</li>
                             <li>Pencatatan silsilah dan data performa yang lengkap.</li>
                             <li>Menyediakan bibit domba berkualitas untuk peternak lain.</li>
@@ -276,7 +309,7 @@
                     <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                     </svg>
-                    <span>Kandang _Portable_ Bongkar Pasang</span>
+                    <span>Kandang Portable Bongkar Pasang</span>
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div>
@@ -284,7 +317,7 @@
                     </div>
                     <div>
                         <p class="text-lg text-gray-700 mb-4">
-                            Kesumah Farm menghadirkan solusi kandang modern yang fleksibel dan efisien. Kandang _portable_ kami dirancang untuk kemudahan perakitan dan pembongkaran, menjadikannya pilihan ideal bagi peternak dengan ruang terbatas atau kebutuhan musiman.
+                            Kesumah Farm menghadirkan solusi kandang modern yang fleksibel dan efisien. Kandang portable kami dirancang untuk kemudahan perakitan dan pembongkaran, menjadikannya pilihan ideal bagi peternak dengan ruang terbatas atau kebutuhan musiman.
                         </p>
                         <ul class="list-disc list-inside text-gray-700 space-y-2 mb-6">
                             <li>Desain modular, mudah dirakit tanpa alat khusus.</li>
@@ -337,15 +370,15 @@
                     <div>
                         <h4 class="text-2xl font-semibold text-emerald-700 mb-3">Visi</h4>
                         <p class="text-lg text-gray-700">
-                            Menjadi pusat layanan penitipan dan _breeding_ domba terkemuka serta penyedia solusi kandang inovatif yang fleksibel di Jawa Barat, dengan komitmen pada keberlanjutan dan kesejahteraan hewan.
+                            Menjadi pusat layanan penitipan dan breeding domba terkemuka serta penyedia solusi kandang inovatif yang fleksibel di Jawa Barat, dengan komitmen pada keberlanjutan dan kesejahteraan hewan.
                         </p>
                     </div>
                     <div>
                         <h4 class="text-2xl font-semibold text-emerald-700 mb-3">Misi</h4>
                         <ul class="list-disc list-inside text-lg text-gray-700 space-y-2">
                             <li>Menyediakan layanan penitipan domba yang aman, sehat, dan transparan melalui adopsi teknologi.</li>
-                            <li>Mengembangkan sistem _breeding_ domba berkualitas untuk menghasilkan bibit unggul dan mendukung ketahanan pangan lokal.</li>
-                            <li>Memproduksi kandang _portable_ bongkar pasang yang ergonomis, efisien, dan ramah lingkungan.</li>
+                            <li>Mengembangkan sistem breeding domba berkualitas untuk menghasilkan bibit unggul dan mendukung ketahanan pangan lokal.</li>
+                            <li>Memproduksi kandang portable bongkar pasang yang ergonomis, efisien, dan ramah lingkungan.</li>
                             <li>Membangun komunitas peternak yang kolaboratif melalui edukasi dan kemitraan strategis.</li>
                             <li>Menerapkan prinsip-prinsip peternakan modern dan berkelanjutan di setiap aspek operasional.</li>
                         </ul>
@@ -468,7 +501,7 @@
                     <!-- Contact Form -->
                     <div>
                         <h3 class="text-3xl font-bold text-gray-900 mb-6">Kirim Pesan kepada Kami</h3>
-                        <form class="space-y-4" onsubmit="event.preventDefault(); alert('Pesan Anda telah terkirim! Kami akan segera menghubungi Anda.'); this.reset();">
+                        <form class="space-y-4" onsubmit="event.preventDefault(); showCustomAlert('Pesan Anda telah terkirim! Kami akan segera menghubungi Anda.'); this.reset();">
                             <div>
                                 <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nama Lengkap</label>
                                 <input
@@ -533,6 +566,18 @@
         </div>
     </footer>
 
+    <!-- Custom Alert Modal -->
+    <div id="custom-alert-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-sm w-full text-center">
+            <h3 class="text-xl font-bold text-gray-800 mb-4" id="custom-alert-title">Pesan Informasi</h3>
+            <p class="text-gray-700 mb-6" id="custom-alert-message"></p>
+            <button id="custom-alert-ok-button" class="bg-emerald-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-emerald-700 transition-colors duration-300">
+                OK
+            </button>
+        </div>
+    </div>
+
+
     <!-- JavaScript for Page Navigation and Mobile Menu -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -543,6 +588,10 @@
             const mobileMenuDropdown = document.getElementById('mobile-menu-dropdown');
             const mobileMenuIconOpen = document.getElementById('mobile-menu-icon-open');
             const mobileMenuIconClose = document.getElementById('mobile-menu-icon-close');
+
+            const customAlertModal = document.getElementById('custom-alert-modal');
+            const customAlertMessage = document.getElementById('custom-alert-message');
+            const customAlertOkButton = document.getElementById('custom-alert-ok-button');
 
             let currentPageId = 'home-page'; // Default page
 
@@ -580,6 +629,16 @@
                     mobileMenuIconClose.classList.add('hidden');
                 }
             }
+
+            // Custom Alert Function
+            function showCustomAlert(message) {
+                customAlertMessage.textContent = message;
+                customAlertModal.classList.remove('hidden');
+            }
+
+            customAlertOkButton.addEventListener('click', function() {
+                customAlertModal.classList.add('hidden');
+            });
 
             // Add event listeners for main navigation items
             navItems.forEach(item => {
