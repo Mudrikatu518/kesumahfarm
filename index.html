@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Map: Kesumah Farm - Profesional & Modern</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e6eff6 100%); /* Soft, professional gradient */
+            color: #212529; /* Darker text for main content */
+            padding: 2.5rem;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Container for the entire mind map */
+        .mind-map-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6rem; /* Increased gap for more breathing room */
+            max-width: 1280px; /* Slightly wider container */
+            margin: 0 auto;
+            position: relative;
+            padding-bottom: 6rem;
+        }
+
+        /* Main Node Styling */
+        .main-node {
+            background: linear-gradient(135deg, #343a40, #495057); /* Deep charcoal to dark gray gradient */
+            color: white;
+            padding: 3rem 5rem;
+            border-radius: 3.5rem; /* Even more rounded */
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45); /* Stronger, diffused shadow */
+            text-align: center;
+            font-size: 3.5rem; /* Even larger font */
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
+            position: relative;
+            z-index: 10;
+            letter-spacing: 0.07em; /* More spaced letters for premium feel */
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+        }
+        .main-node:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.55);
+        }
+
+        /* Section Branch Styling */
+        .section-branch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            gap: 3.5rem; /* Increased gap */
+            position: relative;
+        }
+        .section-title {
+            background: linear-gradient(45deg, #007bff, #0056b3); /* Primary blue gradient */
+            color: white;
+            padding: 2rem 4rem;
+            border-radius: 3rem;
+            font-size: 2.75rem; /* Larger font */
+            font-weight: 700;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            width: fit-content;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 1.8rem; /* More space for icon */
+            letter-spacing: 0.05em;
+            text-shadow: 1.5px 1.5px 4px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Subtle white border */
+        }
+        .section-title:hover {
+            background: linear-gradient(45deg, #0056b3, #007bff);
+            transform: translateY(-8px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+        }
+        .section-title .icon {
+            font-size: 3.2rem; /* Larger icon */
+            line-height: 1;
+        }
+        .arrow-icon {
+            font-size: 2.2rem; /* Larger arrow */
+            transition: transform 0.3s ease-in-out;
+        }
+        .arrow-icon.rotated {
+            transform: rotate(90deg);
+        }
+
+        /* Subsection Card Styling */
+        .subsection-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3.2rem; /* Increased gap */
+            width: 100%;
+            padding: 2.5rem;
+        }
+        .subsection-card {
+            background-color: #ffffff;
+            border-radius: 2.25rem; /* More rounded */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); /* Refined shadow */
+            padding: 2.8rem; /* More padding */
+            flex: 1 1 calc(33% - 3.2rem); /* Adjusted for new gap */
+            min-width: 360px; /* Slightly larger minimum width */
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem; /* Increased gap */
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid #e0e6ed; /* Lighter, subtle border */
+        }
+        .subsection-card:hover {
+            transform: translateY(-10px) scale(1.025);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+        }
+        .subsection-card-title {
+            font-weight: 700;
+            color: #0056b3; /* Deeper blue for card titles */
+            font-size: 1.8rem; /* Larger font */
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            text-shadow: 0.8px 0.8px 2px rgba(0, 0, 0, 0.08);
+        }
+        .subsection-card-title .icon {
+            font-size: 2.4rem; /* Larger icon */
+            line-height: 1;
+            color: #007bff; /* Match section title blue */
+        }
+        .subsection-card ul {
+            list-style: none; /* Remove default disc */
+            padding-left: 0;
+            margin-top: 1rem;
+            color: #495057; /* Slightly darker gray text */
+            font-size: 1.15rem; /* Slightly larger font */
+        }
+        .subsection-card ul li {
+            margin-bottom: 0.8rem; /* More space between list items */
+            position: relative;
+            padding-left: 2.2rem; /* Space for custom bullet */
+        }
+        .subsection-card ul li::before {
+            content: '✓'; /* Checkmark bullet point */
+            color: #28a745; /* Green checkmark */
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -2.2em;
+            position: absolute;
+            left: 0;
+            top: 0.15em; /* Adjust vertical alignment */
+            font-size: 1.1em; /* Slightly larger checkmark */
+        }
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out; /* Slower, smoother transition */
+            padding: 0 2.5rem; /* Adjusted padding */
+        }
+        .collapsible-content.expanded {
+            max-height: 6000px; /* Arbitrary large value to allow expansion */
+            padding: 2.5rem;
+        }
+        .sub-sub-card {
+            background-color: #f8f9fa; /* Very light gray for sub-sub-cards */
+            border-radius: 1.75rem;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: inset 0 5px 12px rgba(0,0,0,0.06); /* More pronounced inset shadow */
+            border: 1px solid #e9ecef; /* Slightly darker border */
+        }
+        .sub-sub-card-title {
+            font-weight: 600;
+            font-size: 1.35rem;
+            color: #6c757d; /* Medium gray */
+            margin-bottom: 1rem;
+        }
+        .sub-sub-card ul li::before {
+            content: '—'; /* Dash for sub-sub-cards */
+            color: #adb5bd; /* Lighter gray dash */
+            top: 0.15em; /* Adjust vertical alignment */
+            font-size: 1.1em; /* Slightly larger dash */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .subsection-card {
+                flex: 1 1 calc(50% - 3.2rem); /* 2 cards per row on medium screens */
+            }
+        }
+        @media (max-width: 768px) {
+            .subsection-card {
+                flex: 1 1 100%; /* 1 card per row on small screens */
+            }
+            .main-node {
+                font-size: 2.8rem;
+                padding: 2rem 3.5rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+                padding: 1.6rem 3rem;
+            }
+            .section-title .icon {
+                font-size: 2.8rem;
+            }
+            .subsection-card-title {
+                font-size: 1.6rem;
+            }
+            .subsection-card-title .icon {
+                font-size: 2rem;
+            }
+        }
+
+        /* Timeline Specific Styles for Rencana Pengembangan */
+        .timeline-container {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #ced4da; /* Light gray line */
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            margin-bottom: 2rem;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: #007bff; /* Blue dot */
+            border: 4px solid #ffffff; /* White border */
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.3);
+        }
+        .timeline-item.left {
+            left: 0;
+        }
+        .timeline-item.right {
+            left: 50%;
+        }
+        .timeline-item.left::before {
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            top: 22px;
+            z-index: 1;
+            right: 30px;
+            border: medium solid white;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent white;
+        }
+        .timeline-item.right::before {
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            top: 22px;
+            z-index: 1;
+            left: 30px;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+        .timeline-item.right::after {
+            left: -16px;
+        }
+        .timeline-content {
+            background-color: white;
+            position: relative;
+            border-radius: 1.25rem;
+            padding: 1.8rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+            border: 1px solid #e0e6ed;
+        }
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+        }
+        .timeline-content h3 {
+            font-weight: 700;
+            color: #0056b3;
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+        }
+        .timeline-content ul {
+            list-style: none;
+            padding-left: 0;
+            font-size: 1.05rem;
+            color: #495057;
+        }
+        .timeline-content ul li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.8rem;
+        }
+        .timeline-content ul li::before {
+            content: '•';
+            color: #007bff;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1.8em;
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+        }
+
+        /* Responsive timeline */
+        @media screen and (max-width: 768px) {
+            .timeline-container::after {
+                left: 31px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-item::before {
+                left: 60px;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent white transparent transparent;
+            }
+            .timeline-item::after {
+                left: 15px;
+            }
+            .timeline-item.right {
+                left: 0%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mind-map-container">
+        <!-- Main Node -->
+        <div id="mainNode" class="main-node">
+            🐑 KESUMAH FARM 🚀
+        </div>
+
+        <!-- LINI BISNIS UTAMA -->
+        <div class="section-branch">
+            <div id="liniBisnisTitle" class="section-title">
+                <span class="icon">💼</span> 1. LINI BISNIS UTAMA <span class="arrow-icon">▶</span>
+            </div>
+            <div id="liniBisnisContent" class="collapsible-content">
+                <div class="subsection-container">
+                    <!-- Layanan Penitipan Kambing/Domba -->
+                    <div class="subsection-card">
+                        <h3 class="subsection-card-title"><span class="icon">🏠</span> 1.1. Layanan Penitipan Kambing/Domba</h3>
+                        <div class="sub-sub-card">
+                            <h4 class="sub-sub-card-title">Deskripsi Layanan:</h4>
+                            <ul>
+                                <li>Fasilitas kandang aman, bersih, nyaman (jangka pendek/panjang).</li>
+                                <li>Termasuk pakan, air minum, perawatan kesehatan dasar.</li>
+                            </ul>
+                        </div>
+                        <div class="sub-sub-card">
+                            <h4 class="sub-sub-card-title">Fitur Unggulan:</h4>
+                            <ul>
+                                <li>Laporan digital berkala (foto/video/teks via WA/email).</li>
+                                <li>Monitoring kondisi hewan.</li>
+                            </ul>
+                        </div>
+                        <div class="sub-sub-card">
+                            <h4 class="sub-sub-card-title">Target Pasar:</h4>
+                            <ul>
+                                <li>Pemilik hewan (tidak ada lahan/fasilitas).</li>
+                                <li>Peternak kecil (penggemukan/perawatan khusus).</li>
+                                <li>Konsumen kurban/akikah (titip hingga hari-H).</li>
+                            </ul>
+                        </div>
+                        <div class="sub-sub-card">
+                            <h4 class="sub-sub-card-title">Operasional Penitipan:</h4>
+                            <ul>
+                                <li>Prosedur penerimaan (pendaftaran, cek kesehatan, identifikasi).</li>
+                                <li>Manajemen perawatan harian (pakan, air, kebersihan kandang).</li>
+                                <li>Manajemen kesehatan (cek visual, vitamin, isolasi sakit, dokter hewan).</li>
+                                <li>Komunikasi transparan dengan pemilik.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Produksi & Penjualan Kandang Portable Bongkar Pasang -->
+                    <div class="subsection-card">
+                        <h3 class="subsection-card-title"><span class="icon">🛠️</span> 1.2. Produksi & Penjualan Kandang Portable Bongkar Pasang</h3>
+                        <div class="sub-sub-card">
+                            <h4 class="sub-sub-card-title">Deskripsi Produk:</h4>
+                            <ul>
+                                <li>Kandang modular, mudah dirakit/dibongkar.</li>
+                                <li>Material ringan tapi kuat (PVC tebal, baja ringan, kayu/bambu olahan).</li>
+                                <li>Desain ergonomis (higienis, lantai panggung).</li>
+                            </ul>
+                        </div>
+                        <div class="sub-sub-card">
+                            <h4 class="sub-sub-card-title">Ukuran:</h4>
+                            <ul>
+                                <li>Berbagai ukuran (1-2 ekor, 5 ekor, 10 ekor, dll.).</li>
+                            </ul>
+                        </div>
+                        <div class="sub-sub-card">
+                            <h4 class="sub-sub-card-title">Fitur Unggulan:</h4>
+                            <ul>
+                                <li>Mudah dipindahkan & hemat ruang penyimpanan.</li>
+                                <li>Higienis & tahan lama.</li>
+                                <li>Harga kompetitif.</li>
+                            </ul>
+                        </div>
+                        <div class="sub-sub-card">
+                            <h4 class="sub-sub-card-title">Target Pasar:</h4>
+                            <ul>
+                                <li>Peternak skala kecil-menengah (butuh fleksibilitas).</li>
+                                <li>Masyarakat (kurban/akikah, kandang sementara).</li>
+                                <li>Penyelenggara acara hewan/pameran.</li>
+                                <li>Pemilik hewan peliharaan besar (kandang *outdoor*).</li>
+                            </ul>
+                        </div>
+                        <div class="sub-sub-card">
+                            <h4 class="sub-sub-card-title">Operasional Produksi:</h4>
+                            <ul>
+                                <li>Finalisasi desain modular.</li>
+                                <li>Pemilihan material efisien & tahan lama.</li>
+                                <li>Proses produksi (pemotongan, sambungan, *finishing*).</li>
+                                <li>Perakitan & kontrol kualitas.</li>
+                                <li>Manajemen inventaris bahan baku.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Produk Sampingan -->
+                    <div class="subsection-card">
+                        <h3 class="subsection-card-title"><span class="icon">♻️</span> 1.3. Produk Sampingan</h3>
+                        <div class="sub-sub-card">
+                            <h4 class="sub-sub-card-title">Pupuk Organik Kesumah Farm:</h4>
+                            <ul>
+                                <li>Deskripsi: Kompos berkualitas tinggi dari kotoran hewan.</li>
+                                <li>Target: Petani lokal, pemilik kebun pribadi.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STRATEGI BISNIS & PEMASARAN -->
+        <div class="section-branch">
+            <div id="strategiBisnisTitle" class="section-title">
+                <span class="icon">📈</span> 2. STRATEGI BISNIS & PEMASARAN <span class="arrow-icon">▶</span>
+            </div>
+            <div id="strategiBisnisContent" class="collapsible-content expanded">
+                <div class="subsection-container">
+                    <div class="subsection-card">
+                        <h3 class="subsection-card-title"><span class="icon">🔬</span> 2.1. Analisis Pasar</h3>
+                        <div class="sub-sub-card">
+                            <h4 class="sub-sub-card-title">Kompetitor:</h4>
+                            <ul>
+                                <li>Peternak tradisional (kurang sistematis).</li>
+                                <li>Peternak besar (kurang personal).</li>
+                                <li>Produsen kandang permanen.</li>
+                            </ul>
+                        </div>
+                        <div class="sub-sub-card">
+                            <h4 class="sub-sub-card-title">Keunggulan Kompetitif (USP):</h4>
+                            <ul>
+                                <li>Fasilitas modern & bersih (penitipan).</li>
+                                <li>Perawatan optimal & transparan berbasis teknologi.</li>
+                                <li>Kandang portable inovatif (kuat, mudah rakit, harga kompetitif).</li>
+                                <li>Lokasi strategis & sinergi produk.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="subsection-card">
+                        <h3 class="subsection-card-title"><span class="icon">🌐</span> 2.2. Pemasaran Digital</h3>
+                        <ul>
+                            <li>Media Sosial (@KesumahFarm di FB/IG): Foto/video fasilitas, perawatan, testimoni, demo kandang portable.</li>
+                            <li>Grup Komunitas Online: WA/FB grup peternak, jual beli hewan, kurban/akikah.</li>
+                            <li>Google My Business: Mudah ditemukan lokal.</li>
+                            <li>Konten Edukatif: Tips perawatan, panduan kandang, tutorial perakitan.</li>
+                            <li>E-commerce Sederhana (opsional): Tokopedia/Shopee untuk kandang.</li>
+                        </ul>
+                    </div>
+                    <div class="subsection-card">
+                        <h3 class="subsection-card-title"><span class="icon">🤝</span> 2.3. Pemasaran Langsung & Kemitraan</h3>
+                        <ul>
+                            <li>Jaringan Lokal: Toko pakan, penjual hewan, petani, toko bangunan.</li>
+                            <li>Partisipasi Acara: Pameran hewan, bazar kurban/akikah, UMKM.</li>
+                            <li>Kemitraan Strategis: Panitia kurban masjid/lembaga, katering akikah.</li>
+                        </ul>
+                    </div>
+                    <div class="subsection-card">
+                        <h3 class="subsection-card-title"><span class="icon">💲</span> 2.4. Strategi Harga</h3>
+                        <ul>
+                            <li>Layanan Penitipan: Kompetitif (per hari/minggu/bulan, variasi layanan).</li>
+                            <li>Kandang Portable: Kompetitif (kualitas, kemudahan, daya tahan), paket *bundling*.</li>
+                            <li>Pupuk Organik: Kompetitif dengan pasar.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MANAJEMEN & OPERASIONAL UMUM -->
+        <div class="section-branch">
+            <div id="manajemenOperasionalTitle" class="section-title">
+                <span class="icon">⚙️</span> 3. MANAJEMEN & OPERASIONAL UMUM <span class="arrow-icon">▶</span>
+            </div>
+            <div id="manajemenOperasionalContent" class="collapsible-content expanded">
+                <div class="subsection-container">
+                    <div class="subsection-card">
+                        <h3 class="subsection-card-title"><span class="icon">🧑‍🤝‍🧑</span> 3.1. Struktur Organisasi (Awal)</h3>
+                        <ul>
+                            <li>Manajer Peternakan (Pemilik/Anda).</li>
+                            <li>Staf Lapangan (1-2 Orang).</li>
+                        </ul>
+                    </div>
+                    <div class="subsection-card">
+                        <h3 class="subsection-card-title"><span class="icon">🎓</span> 3.2. Kualifikasi Tim</h3>
+                        <ul>
+                            <li>Manajer: Komunikasi, operasional, akuntansi dasar, teknis kandang, teknologi.</li>
+                            <li>Staf Lapangan: Pekerja keras, bertanggung jawab, menyukai hewan, dasar pertukangan, mau dilatih digital.</li>
+                        </ul>
+                    </div>
+                    <div class="subsection-card">
+                        <h3 class="subsection-card-title"><span class="icon">💻</span> 3.3. Penerapan Teknologi Tepat Guna</h3>
+                        <ul>
+                            <li>Pencatatan Digital (Google Sheets/aplikasi).</li>
+                            <li>CCTV (opsional): Pemantauan keamanan & observasi.</li>
+                        </ul>
+                    </div>
+                    <div class="subsection-card">
+                        <h3 class="subsection-card-title"><span class="icon">🗑️</span> 3.4. Pengelolaan Limbah</h3>
+                        <ul>
+                            <li>Kotoran hewan & sisa produksi kandang diolah jadi pupuk kompos/daur ulang.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RENCANA KEUANGAN -->
+        <div class="section-branch">
+            <div id="rencanaKeuanganTitle" class="section-title">
+                <span class="icon">💰</span> 4. RENCANA KEUANGAN <span class="arrow-icon">▶</span>
+            </div>
+            <div id="rencanaKeuanganContent" class="collapsible-content expanded">
+                <div class="subsection-container">
+                    <div class="subsection-card">
+                        <h3 class="subsection-card-title"><span class="icon">💸</span> 4.1. Estimasi Biaya Investasi Awal</h3>
+                        <ul>
+                            <li>Sewa Lahan, Pembangunan Kandang Penitipan, Peralatan Peternakan Dasar, Peralatan Produksi Kandang Portable, Teknologi Tepat Guna Awal, Persiapan Lahan Pakan, Perizinan Awal.</li>
+                            <li>**Total Estimasi: Rp 39.300.000 - Rp 69.500.000**</li>
+                        </ul>
+                    </div>
+                    <div class="subsection-card">
+                        <h3 class="subsection-card-title"><span class="icon">🧾</span> 4.2. Estimasi Biaya Operasional Bulanan</h3>
+                        <ul>
+                            <li>Pakan, Kesehatan Hewan, Gaji Tenaga Lapangan, Listrik & Air, Bahan Baku Kandang Portable, Pemasaran Digital, Biaya Tak Terduga.</li>
+                            <li>**Total Estimasi: Rp 8.600.000 - Rp 17.200.000**</li>
+                        </ul>
+                    </div>
+                    <div class="subsection-card">
+                        <h3 class="subsection-card-title"><span class="icon">📊</span> 4.3. Proyeksi Pendapatan Bulanan</h3>
+                        <ul>
+                            <li>Penitipan, Penjualan Kandang Portable, Penjualan Pupuk Organik.</li>
+                            <li>**Total Proyeksi: Rp 20.625.000 - Rp 21.125.000**</li>
+                        </ul>
+                    </div>
+                    <div class="subsection-card">
+                        <h3 class="subsection-card-title"><span class="icon">📈</span> 4.4. Analisis Titik Impas (BEP)</h3>
+                        <ul>
+                            <li>Diharapkan lebih cepat tercapai (4-8 bulan) karena diversifikasi pendapatan.</li>
+                        </ul>
+                    </div>
+                    <div class="subsection-card">
+                        <h3 class="subsection-card-title"><span class="icon">🏦</span> 4.5. Strategi Pendanaan</h3>
+                        <ul>
+                            <li>Modal pribadi awal, akumulasi keuntungan untuk ekspansi.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MANAJEMEN RISIKO -->
+        <div class="section-branch">
+            <div id="manajemenRisikoTitle" class="section-title">
+                <span class="icon">⚠️</span> 5. MANAJEMEN RISIKO <span class="arrow-icon">▶</span>
+            </div>
+            <div id="manajemenRisikoContent" class="collapsible-content expanded">
+                <div class="subsection-container">
+                    <div class="subsection-card">
+                        <ul>
+                            <li>Kesehatan Hewan Titipan.</li>
+                            <li>Penurunan Okupansi Penitipan.</li>
+                            <li>Penurunan Penjualan Kandang.</li>
+                            <li>Kerusakan Fasilitas/Produk.</li>
+                            <li>Keuangan (arus kas).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RENCANA PENGEMBANGAN & SKALABILITAS (Timeline Layout) -->
+        <div class="section-branch">
+            <div id="rencanaPengembanganTitle" class="section-title">
+                <span class="icon">🚀</span> 6. RENCANA PENGEMBANGAN & SKALABILITAS <span class="arrow-icon">▶</span>
+            </div>
+            <div id="rencanaPengembanganContent" class="collapsible-content expanded">
+                <div class="timeline-container">
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3><span class="icon">🌱</span> 6.1. Fase 1 (Bulan 1-12): Fokus Penitipan, Kandang Portable & Pembangunan Reputasi</h3>
+                            <ul>
+                                <li>Stabilisasi operasional layanan penitipan dan produksi/penjualan kandang portable.</li>
+                                <li>Pembangunan basis pelanggan setia.</li>
+                                <li>Optimalisasi efisiensi perawatan hewan dan proses produksi kandang.</li>
+                                <li>Pengumpulan modal dari keuntungan kedua lini bisnis.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3><span class="icon">📈</span> 6.2. Fase 2 (Bulan 13-24): Transisi ke Peternakan Domba Penuh & Peningkatan Produksi Kandang</h3>
+                            <ul>
+                                <li>Secara bertahap mulai membeli bibit domba sendiri (indukan) menggunakan modal dari keuntungan.</li>
+                                <li>Mengalokasikan sebagian kandang untuk domba milik sendiri (penggemukan/breeding).</li>
+                                <li>Mulai menerapkan program seleksi genetik sederhana pada domba milik sendiri.</li>
+                                <li>Memperluas lahan pakan hijauan jika memungkinkan.</li>
+                                <li>Meningkatkan kapasitas produksi kandang portable dan diversifikasi model.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 3 -->
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3><span class="icon">🌟</span> 6.3. Fase 3 (Bulan 25+): Peternakan Domba Modern Terintegrasi & Pusat Solusi Kandang</h3>
+                            <ul>
+                                <li>Populasi domba sendiri signifikan.</li>
+                                <li>Layanan penitipan & kandang tetap berjalan sebagai pendukung pendapatan dan *cash flow* stabil.</li>
+                                <li>Fokus pada penjualan domba/bibit.</li>
+                                <li>Pengembangan produk pupuk organik skala lebih besar.</li>
+                                <li>Potensi investasi pada teknologi yang lebih canggih (misal: *smart feeder* otomatis penuh, sistem irigasi pintar) jika volume dan profitabilitas mendukung.</li>
+                                <li>Ekspansi pasar regional.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sectionTitles = document.querySelectorAll('.section-title');
+
+            sectionTitles.forEach(title => {
+                title.addEventListener('click', () => {
+                    // Tutup semua section lain
+                    sectionTitles.forEach(otherTitle => {
+                        const otherContentId = otherTitle.id.replace('Title', 'Content');
+                        const otherContentDiv = document.getElementById(otherContentId);
+                        const otherArrowIcon = otherTitle.querySelector('.arrow-icon');
+                        if (otherContentDiv && otherContentDiv !== document.getElementById(title.id.replace('Title', 'Content'))) {
+                            otherContentDiv.classList.remove('expanded');
+                            otherArrowIcon.classList.remove('rotated');
+                        }
+                    });
+
+                    // Toggle section yang diklik
+                    const contentId = title.id.replace('Title', 'Content');
+                    const contentDiv = document.getElementById(contentId);
+                    const arrowIcon = title.querySelector('.arrow-icon');
+                    if (contentDiv) {
+                        contentDiv.classList.toggle('expanded');
+                        arrowIcon.classList.toggle('rotated');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
