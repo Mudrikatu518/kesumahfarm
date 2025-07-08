@@ -4,27 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mind Map: Kesumah Farm - Profesional & Modern</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-blue: #007bff;
+            --dark-blue: #0056b3;
+            --accent-green: #28a745;
+            --dark-charcoal: #343a40;
+            --light-gray-bg: #f8f9fa;
+            --medium-gray-border: #e0e6ed;
+            --text-dark: #212529;
+            --text-medium: #495057;
+            --text-light: #6c757d;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f0f4f8 0%, #e6eff6 100%); /* Soft, professional gradient */
-            color: #212529; /* Darker text for main content */
+            background: linear-gradient(135deg, #f0f4f8 0%, #e6eff6 100%);
+            color: var(--text-dark);
             padding: 2.5rem;
             line-height: 1.7;
             overflow-x: hidden;
+            display: flex;
+            justify-content: center;
         }
 
-        /* Container for the entire mind map */
         .mind-map-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6rem; /* Increased gap for more breathing room */
-            max-width: 1280px; /* Slightly wider container */
+            gap: 6rem;
+            max-width: 1280px;
             margin: 0 auto;
             position: relative;
             padding-bottom: 6rem;
@@ -32,25 +43,25 @@
 
         /* Main Node Styling */
         .main-node {
-            background: linear-gradient(135deg, #343a40, #495057); /* Deep charcoal to dark gray gradient */
+            background: linear-gradient(135deg, var(--dark-charcoal), #495057);
             color: white;
             padding: 3rem 5rem;
-            border-radius: 3.5rem; /* Even more rounded */
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45); /* Stronger, diffused shadow */
+            border-radius: 3.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); /* Refined shadow */
             text-align: center;
-            font-size: 3.5rem; /* Even larger font */
+            font-size: 3.5rem;
             font-weight: 800;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             position: relative;
             z-index: 10;
-            letter-spacing: 0.07em; /* More spaced letters for premium feel */
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+            letter-spacing: 0.07em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
         }
         .main-node:hover {
-            transform: translateY(-15px) scale(1.05);
-            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.55);
+            transform: translateY(-10px) scale(1.02); /* Slightly less dramatic hover */
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
         }
 
         /* Section Branch Styling */
@@ -59,39 +70,39 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            gap: 3.5rem; /* Increased gap */
+            gap: 3.5rem;
             position: relative;
         }
         .section-title {
-            background: linear-gradient(45deg, #007bff, #0056b3); /* Primary blue gradient */
+            background: linear-gradient(45deg, var(--primary-blue), var(--dark-blue));
             color: white;
-            padding: 2rem 4rem;
+            padding: 1.8rem 3.5rem; /* Slightly reduced padding */
             border-radius: 3rem;
-            font-size: 2.75rem; /* Larger font */
+            font-size: 2.5rem; /* Slightly smaller font */
             font-weight: 700;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25); /* Refined shadow */
             cursor: pointer;
             transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
             width: fit-content;
             text-align: center;
             display: flex;
             align-items: center;
-            gap: 1.8rem; /* More space for icon */
-            letter-spacing: 0.05em;
-            text-shadow: 1.5px 1.5px 4px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.15); /* Subtle white border */
+            gap: 1.5rem; /* Slightly less space */
+            letter-spacing: 0.04em; /* Subtle adjustment */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .section-title:hover {
-            background: linear-gradient(45deg, #0056b3, #007bff);
-            transform: translateY(-8px);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+            background: linear-gradient(45deg, var(--dark-blue), var(--primary-blue));
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
         }
         .section-title .icon {
-            font-size: 3.2rem; /* Larger icon */
+            font-size: 2.8rem; /* Slightly smaller icon */
             line-height: 1;
         }
         .arrow-icon {
-            font-size: 2.2rem; /* Larger arrow */
+            font-size: 2rem; /* Slightly smaller arrow */
             transition: transform 0.3s ease-in-out;
         }
         .arrow-icon.rotated {
@@ -103,123 +114,130 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 3.2rem; /* Increased gap */
+            gap: 2.5rem; /* Slightly reduced gap for a tighter look */
             width: 100%;
-            padding: 2.5rem;
+            padding: 2rem; /* Reduced padding */
         }
         .subsection-card {
             background-color: #ffffff;
-            border-radius: 2.25rem; /* More rounded */
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); /* Refined shadow */
-            padding: 2.8rem; /* More padding */
-            flex: 1 1 calc(33% - 3.2rem); /* Adjusted for new gap */
-            min-width: 360px; /* Slightly larger minimum width */
+            border-radius: 2rem; /* Slightly less rounded */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Lighter, diffused shadow */
+            padding: 2.5rem; /* Slightly reduced padding */
+            flex: 1 1 calc(33% - 2.5rem); /* Adjusted for new gap */
+            min-width: 340px; /* Slightly smaller min-width */
             display: flex;
             flex-direction: column;
-            gap: 1.8rem; /* Increased gap */
-            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-            border: 1px solid #e0e6ed; /* Lighter, subtle border */
+            gap: 1.5rem; /* Slightly reduced gap */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid var(--medium-gray-border);
         }
         .subsection-card:hover {
-            transform: translateY(-10px) scale(1.025);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+            transform: translateY(-8px) scale(1.01); /* Less dramatic hover */
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
         }
         .subsection-card-title {
             font-weight: 700;
-            color: #0056b3; /* Deeper blue for card titles */
-            font-size: 1.8rem; /* Larger font */
-            margin-bottom: 1.2rem;
+            color: var(--dark-blue);
+            font-size: 1.6rem; /* Slightly smaller font */
+            margin-bottom: 0.8rem; /* Reduced margin */
             display: flex;
             align-items: center;
-            gap: 1.2rem;
-            text-shadow: 0.8px 0.8px 2px rgba(0, 0, 0, 0.08);
+            gap: 1rem;
+            text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.05); /* Lighter text shadow */
         }
         .subsection-card-title .icon {
-            font-size: 2.4rem; /* Larger icon */
+            font-size: 2.2rem; /* Slightly smaller icon */
             line-height: 1;
-            color: #007bff; /* Match section title blue */
+            color: var(--primary-blue);
         }
         .subsection-card ul {
-            list-style: none; /* Remove default disc */
+            list-style: none;
             padding-left: 0;
-            margin-top: 1rem;
-            color: #495057; /* Slightly darker gray text */
-            font-size: 1.15rem; /* Slightly larger font */
+            margin-top: 0.8rem; /* Reduced margin */
+            color: var(--text-medium);
+            font-size: 1.05rem; /* Slightly smaller font */
         }
         .subsection-card ul li {
-            margin-bottom: 0.8rem; /* More space between list items */
+            margin-bottom: 0.7rem; /* Slightly less space */
             position: relative;
-            padding-left: 2.2rem; /* Space for custom bullet */
+            padding-left: 2rem; /* Reduced space for custom bullet */
         }
         .subsection-card ul li::before {
-            content: '✓'; /* Checkmark bullet point */
-            color: #28a745; /* Green checkmark */
+            content: '✓';
+            color: var(--accent-green);
             font-weight: bold;
             display: inline-block;
             width: 1em;
-            margin-left: -2.2em;
+            margin-left: -2em; /* Adjusted margin */
             position: absolute;
             left: 0;
-            top: 0.15em; /* Adjust vertical alignment */
-            font-size: 1.1em; /* Slightly larger checkmark */
+            top: 0.1em; /* Adjusted vertical alignment */
+            font-size: 1em;
         }
         .collapsible-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease-out, padding 0.4s ease-out; /* Slower, smoother transition */
-            padding: 0 2.5rem; /* Adjusted padding */
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out; /* Slower, smoother transition */
+            padding: 0 2rem; /* Adjusted padding */
         }
         .collapsible-content.expanded {
-            max-height: 6000px; /* Arbitrary large value to allow expansion */
-            padding: 2.5rem;
+            max-height: 6000px;
+            padding: 2rem;
         }
         .sub-sub-card {
-            background-color: #f8f9fa; /* Very light gray for sub-sub-cards */
-            border-radius: 1.75rem;
-            padding: 2rem;
-            margin-top: 2rem;
-            box-shadow: inset 0 5px 12px rgba(0,0,0,0.06); /* More pronounced inset shadow */
-            border: 1px solid #e9ecef; /* Slightly darker border */
+            background-color: var(--light-gray-bg);
+            border-radius: 1.5rem; /* Slightly less rounded */
+            padding: 1.8rem; /* Slightly reduced padding */
+            margin-top: 1.8rem; /* Slightly reduced margin */
+            box-shadow: inset 0 3px 8px rgba(0,0,0,0.05); /* Lighter inset shadow */
+            border: 1px solid #dee2e6; /* Lighter border */
         }
         .sub-sub-card-title {
             font-weight: 600;
-            font-size: 1.35rem;
-            color: #6c757d; /* Medium gray */
-            margin-bottom: 1rem;
+            font-size: 1.25rem; /* Slightly smaller font */
+            color: var(--text-light);
+            margin-bottom: 0.8rem; /* Reduced margin */
         }
         .sub-sub-card ul li::before {
-            content: '—'; /* Dash for sub-sub-cards */
-            color: #adb5bd; /* Lighter gray dash */
-            top: 0.15em; /* Adjust vertical alignment */
-            font-size: 1.1em; /* Slightly larger dash */
+            content: '—';
+            color: #adb5bd;
+            top: 0.1em;
+            font-size: 1em;
         }
 
         /* Responsive adjustments */
         @media (max-width: 1024px) {
             .subsection-card {
-                flex: 1 1 calc(50% - 3.2rem); /* 2 cards per row on medium screens */
+                flex: 1 1 calc(50% - 2.5rem);
             }
         }
         @media (max-width: 768px) {
+            body {
+                padding: 1.5rem;
+            }
             .subsection-card {
-                flex: 1 1 100%; /* 1 card per row on small screens */
+                flex: 1 1 100%;
+                min-width: unset; /* Allow card to shrink */
             }
             .main-node {
-                font-size: 2.8rem;
-                padding: 2rem 3.5rem;
+                font-size: 2.5rem;
+                padding: 1.8rem 3rem;
             }
             .section-title {
-                font-size: 2.2rem;
-                padding: 1.6rem 3rem;
+                font-size: 2rem;
+                padding: 1.4rem 2.5rem;
             }
             .section-title .icon {
-                font-size: 2.8rem;
+                font-size: 2.5rem;
             }
             .subsection-card-title {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
             .subsection-card-title .icon {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            .subsection-card ul li {
+                font-size: 1rem;
             }
         }
 
@@ -234,13 +252,13 @@
         .timeline-container::after {
             content: '';
             position: absolute;
-            width: 6px;
-            background-color: #ced4da; /* Light gray line */
+            width: 4px; /* Thinner line */
+            background-color: #ced4da;
             top: 0;
             bottom: 0;
             left: 50%;
-            margin-left: -3px;
-            border-radius: 3px;
+            margin-left: -2px; /* Adjusted for thinner line */
+            border-radius: 2px;
         }
         .timeline-item {
             padding: 10px 40px;
@@ -252,15 +270,15 @@
         .timeline-item::after {
             content: '';
             position: absolute;
-            width: 25px;
-            height: 25px;
-            right: -17px;
-            background-color: #007bff; /* Blue dot */
-            border: 4px solid #ffffff; /* White border */
+            width: 20px; /* Smaller dot */
+            height: 20px; /* Smaller dot */
+            right: -12px; /* Adjusted for smaller dot */
+            background-color: var(--primary-blue);
+            border: 3px solid #ffffff; /* Thinner border */
             top: 15px;
             border-radius: 50%;
             z-index: 1;
-            box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.3);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2); /* Lighter shadow */
         }
         .timeline-item.left {
             left: 0;
@@ -293,45 +311,45 @@
             border-color: transparent white transparent transparent;
         }
         .timeline-item.right::after {
-            left: -16px;
+            left: -10px; /* Adjusted for smaller dot */
         }
         .timeline-content {
             background-color: white;
             position: relative;
-            border-radius: 1.25rem;
-            padding: 1.8rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease-in-out;
-            border: 1px solid #e0e6ed;
+            border-radius: 1rem; /* Slightly less rounded */
+            padding: 1.5rem; /* Reduced padding */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Lighter shadow */
+            transition: all 0.25s ease-in-out; /* Faster transition */
+            border: 1px solid var(--medium-gray-border);
         }
         .timeline-content:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+            transform: translateY(-3px); /* Less dramatic hover */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
         .timeline-content h3 {
             font-weight: 700;
-            color: #0056b3;
-            font-size: 1.6rem;
-            margin-bottom: 0.8rem;
+            color: var(--dark-blue);
+            font-size: 1.4rem; /* Slightly smaller font */
+            margin-bottom: 0.6rem; /* Reduced margin */
         }
         .timeline-content ul {
             list-style: none;
             padding-left: 0;
-            font-size: 1.05rem;
-            color: #495057;
+            font-size: 1rem; /* Slightly smaller font */
+            color: var(--text-medium);
         }
         .timeline-content ul li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem; /* Reduced space */
             position: relative;
-            padding-left: 1.8rem;
+            padding-left: 1.5rem; /* Reduced padding */
         }
         .timeline-content ul li::before {
             content: '•';
-            color: #007bff;
+            color: var(--primary-blue);
             font-weight: bold;
             display: inline-block;
             width: 1em;
-            margin-left: -1.8em;
+            margin-left: -1.5em; /* Adjusted margin */
             position: absolute;
             left: 0;
             top: 0.1em;
@@ -340,42 +358,35 @@
         /* Responsive timeline */
         @media screen and (max-width: 768px) {
             .timeline-container::after {
-                left: 31px;
+                left: 20px; /* Adjusted for smaller screens */
             }
             .timeline-item {
                 width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
+                padding-left: 50px; /* Adjusted padding */
+                padding-right: 15px; /* Adjusted padding */
             }
             .timeline-item::before {
-                left: 60px;
-                border-width: 10px 10px 10px 0;
-                border-color: transparent white transparent transparent;
+                left: 40px; /* Adjusted for smaller screens */
+                border-width: 8px 8px 8px 0; /* Slightly smaller border */
             }
             .timeline-item::after {
-                left: 15px;
-            }
-            .timeline-item.right {
-                left: 0%;
+                left: 8px; /* Adjusted for smaller screens */
             }
         }
     </style>
 </head>
 <body>
     <div class="mind-map-container">
-        <!-- Main Node -->
         <div id="mainNode" class="main-node">
             🐑 KESUMAH FARM 🚀
         </div>
 
-        <!-- LINI BISNIS UTAMA -->
         <div class="section-branch">
             <div id="liniBisnisTitle" class="section-title">
                 <span class="icon">💼</span> 1. LINI BISNIS UTAMA <span class="arrow-icon">▶</span>
             </div>
             <div id="liniBisnisContent" class="collapsible-content">
                 <div class="subsection-container">
-                    <!-- Layanan Penitipan Kambing/Domba -->
                     <div class="subsection-card">
                         <h3 class="subsection-card-title"><span class="icon">🏠</span> 1.1. Layanan Penitipan Kambing/Domba</h3>
                         <div class="sub-sub-card">
@@ -411,7 +422,6 @@
                         </div>
                     </div>
 
-                    <!-- Produksi & Penjualan Kandang Portable Bongkar Pasang -->
                     <div class="subsection-card">
                         <h3 class="subsection-card-title"><span class="icon">🛠️</span> 1.2. Produksi & Penjualan Kandang Portable Bongkar Pasang</h3>
                         <div class="sub-sub-card">
@@ -457,7 +467,6 @@
                         </div>
                     </div>
 
-                    <!-- Produk Sampingan -->
                     <div class="subsection-card">
                         <h3 class="subsection-card-title"><span class="icon">♻️</span> 1.3. Produk Sampingan</h3>
                         <div class="sub-sub-card">
@@ -472,7 +481,6 @@
             </div>
         </div>
 
-        <!-- STRATEGI BISNIS & PEMASARAN -->
         <div class="section-branch">
             <div id="strategiBisnisTitle" class="section-title">
                 <span class="icon">📈</span> 2. STRATEGI BISNIS & PEMASARAN <span class="arrow-icon">▶</span>
@@ -529,7 +537,6 @@
             </div>
         </div>
 
-        <!-- MANAJEMEN & OPERASIONAL UMUM -->
         <div class="section-branch">
             <div id="manajemenOperasionalTitle" class="section-title">
                 <span class="icon">⚙️</span> 3. MANAJEMEN & OPERASIONAL UMUM <span class="arrow-icon">▶</span>
@@ -567,7 +574,6 @@
             </div>
         </div>
 
-        <!-- RENCANA KEUANGAN -->
         <div class="section-branch">
             <div id="rencanaKeuanganTitle" class="section-title">
                 <span class="icon">💰</span> 4. RENCANA KEUANGAN <span class="arrow-icon">▶</span>
@@ -611,7 +617,6 @@
             </div>
         </div>
 
-        <!-- MANAJEMEN RISIKO -->
         <div class="section-branch">
             <div id="manajemenRisikoTitle" class="section-title">
                 <span class="icon">⚠️</span> 5. MANAJEMEN RISIKO <span class="arrow-icon">▶</span>
@@ -631,14 +636,12 @@
             </div>
         </div>
 
-        <!-- RENCANA PENGEMBANGAN & SKALABILITAS (Timeline Layout) -->
         <div class="section-branch">
             <div id="rencanaPengembanganTitle" class="section-title">
                 <span class="icon">🚀</span> 6. RENCANA PENGEMBANGAN & SKALABILITAS <span class="arrow-icon">▶</span>
             </div>
             <div id="rencanaPengembanganContent" class="collapsible-content expanded">
                 <div class="timeline-container">
-                    <!-- Timeline Item 1 -->
                     <div class="timeline-item left">
                         <div class="timeline-content">
                             <h3><span class="icon">🌱</span> 6.1. Fase 1 (Bulan 1-12): Fokus Penitipan, Kandang Portable & Pembangunan Reputasi</h3>
@@ -651,7 +654,6 @@
                         </div>
                     </div>
 
-                    <!-- Timeline Item 2 -->
                     <div class="timeline-item right">
                         <div class="timeline-content">
                             <h3><span class="icon">📈</span> 6.2. Fase 2 (Bulan 13-24): Transisi ke Peternakan Domba Penuh & Peningkatan Produksi Kandang</h3>
@@ -665,7 +667,6 @@
                         </div>
                     </div>
 
-                    <!-- Timeline Item 3 -->
                     <div class="timeline-item left">
                         <div class="timeline-content">
                             <h3><span class="icon">🌟</span> 6.3. Fase 3 (Bulan 25+): Peternakan Domba Modern Terintegrasi & Pusat Solusi Kandang</h3>
@@ -690,22 +691,25 @@
 
             sectionTitles.forEach(title => {
                 title.addEventListener('click', () => {
-                    // Tutup semua section lain
-                    sectionTitles.forEach(otherTitle => {
-                        const otherContentId = otherTitle.id.replace('Title', 'Content');
-                        const otherContentDiv = document.getElementById(otherContentId);
-                        const otherArrowIcon = otherTitle.querySelector('.arrow-icon');
-                        if (otherContentDiv && otherContentDiv !== document.getElementById(title.id.replace('Title', 'Content'))) {
-                            otherContentDiv.classList.remove('expanded');
-                            otherArrowIcon.classList.remove('rotated');
-                        }
-                    });
-
                     // Toggle section yang diklik
                     const contentId = title.id.replace('Title', 'Content');
                     const contentDiv = document.getElementById(contentId);
                     const arrowIcon = title.querySelector('.arrow-icon');
+
                     if (contentDiv) {
+                        // Close other expanded sections only if the clicked section is currently closed
+                        if (!contentDiv.classList.contains('expanded')) {
+                            sectionTitles.forEach(otherTitle => {
+                                const otherContentId = otherTitle.id.replace('Title', 'Content');
+                                const otherContentDiv = document.getElementById(otherContentId);
+                                const otherArrowIcon = otherTitle.querySelector('.arrow-icon');
+                                if (otherContentDiv && otherContentDiv.classList.contains('expanded')) {
+                                    otherContentDiv.classList.remove('expanded');
+                                    otherArrowIcon.classList.remove('rotated');
+                                }
+                            });
+                        }
+                        
                         contentDiv.classList.toggle('expanded');
                         arrowIcon.classList.toggle('rotated');
                     }
